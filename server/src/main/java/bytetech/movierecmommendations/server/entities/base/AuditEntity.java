@@ -35,6 +35,7 @@ public abstract class AuditEntity {
     private String lastModifiedBy;
 
     @Column(name = "deleted", precision = 0)
-    private Boolean deleted;
+    private Boolean deleted = false;
+
 
 }
