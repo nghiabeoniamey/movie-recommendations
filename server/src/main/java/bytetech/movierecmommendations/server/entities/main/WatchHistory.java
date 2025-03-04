@@ -1,10 +1,7 @@
 package bytetech.movierecmommendations.server.entities.main;
 
 import bytetech.movierecmommendations.server.entities.base.PrimaryEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +17,16 @@ import java.io.Serializable;
 @Setter
 public class WatchHistory extends PrimaryEntity implements Serializable {
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
+//    private User user;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+//    private Movie movie;
+@Column(name = "user_id")
+private String userId;
 
-    @ManyToOne
-    @JoinColumn(name = "movie_id", referencedColumnName = "id")
-    private Movie movie;
-
+    @Column(name = "movie_id")
+    private String movieId;
 }
