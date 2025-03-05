@@ -1,15 +1,14 @@
-package bytetech.movierecmommendations.server.core.admin.user.repository;
+package bytetech.movierecmommendations.server.core.user.account.repository;
 
-import bytetech.movierecmommendations.server.core.admin.user.model.request.AdminFindUserRequest;
-import bytetech.movierecmommendations.server.core.admin.user.model.response.AdminModifyUserResponse;
-import bytetech.movierecmommendations.server.core.admin.user.model.response.AdminUserResponse;
+import bytetech.movierecmommendations.server.core.user.account.model.request.UserFindAccountRequest;
+import bytetech.movierecmommendations.server.core.user.account.model.response.UserAccountResponse;
 import bytetech.movierecmommendations.server.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface AdminUserRepository extends UserRepository {
+public interface UserAccountRepository extends UserRepository {
 
     @Query(value = """
             SELECT
@@ -17,7 +16,6 @@ public interface AdminUserRepository extends UserRepository {
                 u.id AS id,
                 u.full_name AS name,
                 u.email AS email,
-                u.password AS password,
                 u.profile_picture AS profilePicture,
                 u.role_constant AS role,
                 u.deleted AS deleted
@@ -39,7 +37,7 @@ public interface AdminUserRepository extends UserRepository {
             AND (:#{#req.status} IS NULL OR u.deleted = :#{#req.status})
             AND (:#{#req.role} IS NULL OR u.role_constant = :#{#req.role})
             """, nativeQuery = true)
-    Page<AdminUserResponse> getUsers(Pageable pageable, @Param("req") AdminFindUserRequest req);
+    Page<UserAccountResponse> getUsers(Pageable pageable, @Param("req") UserFindAccountRequest req);
 
     @Query(value = """
                     SELECT
@@ -51,9 +49,8 @@ public interface AdminUserRepository extends UserRepository {
                         u.role_constant AS role,
                         u.deleted AS deleted
                     FROM user u
-                    WHERE u.id = :id
             """, nativeQuery = true)
-    AdminModifyUserResponse findUserById(String id);
+    UserAccountResponse findUserById(String id);
 
     boolean existsByEmail(String email);
 
