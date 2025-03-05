@@ -27,6 +27,8 @@ public class DBGenEntityServiceImpl implements DBGenEntityService {
 
     @Override
     public void generateUser() {
-        userRepository.saveAll(users);
+        if(userRepository.count() == 0) {
+            userRepository.saveAll(users);
+        }
     }
 }

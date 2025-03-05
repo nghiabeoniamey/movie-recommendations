@@ -1,9 +1,8 @@
-package bytetech.movierecmommendations.server.core.admin.user.model.request;
+package bytetech.movierecmommendations.server.core.user.account.model.request;
 
 import bytetech.movierecmommendations.server.infrastructure.constants.module.Message;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminUserRequest {
+public class UserAccountRequest {
 
     @NotBlank(message = Message.Validate.NOT_BLANK)
     @Size(min = 8, max = 50, message = Message.Validate.SIZE50)
@@ -32,6 +31,7 @@ public class AdminUserRequest {
     @Size(min = 8, max = 100, message = Message.Validate.SIZE100)
     private String profilePicture;
 
+    @NotBlank(message = Message.Validate.NOT_BLANK)
     private Integer role;
 
 }
