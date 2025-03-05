@@ -17,16 +17,12 @@ import java.io.Serializable;
 @Setter
 public class WatchHistory extends PrimaryEntity implements Serializable {
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", referencedColumnName = "id")
-//    private User user;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "movie_id", referencedColumnName = "id")
-//    private Movie movie;
-@Column(name = "user_id")
-private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
-    @Column(name = "movie_id")
-    private String movieId;
+    @ManyToOne
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+    private Movie movie;
+
 }

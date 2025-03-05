@@ -1,11 +1,22 @@
-package bytetech.movierecmommendations.server.core.client.movei.model.request;
+package bytetech.movierecmommendations.server.core.client.movie.model.request;
 
 import bytetech.movierecmommendations.server.infrastructure.constants.module.EntityProperties;
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public class MoviFilterRequest {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class MovieFilterRequest {
+
     private String title;
+
     private String categoryId;
+
     private String description;
 
     private String author;
@@ -19,4 +30,5 @@ public class MoviFilterRequest {
 
     @Column(length = EntityProperties.LENGTH_URL)
     private String movies;
+
 }
