@@ -1,10 +1,7 @@
 package bytetech.movierecmommendations.server.entities.main;
 
 import bytetech.movierecmommendations.server.entities.base.PrimaryEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
