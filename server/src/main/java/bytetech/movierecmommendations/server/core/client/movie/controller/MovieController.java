@@ -1,6 +1,6 @@
-package bytetech.movierecmommendations.server.core.client.movei.controller;
+package bytetech.movierecmommendations.server.core.client.movie.controller;
 
-import bytetech.movierecmommendations.server.core.client.movei.service.MovieService;
+import bytetech.movierecmommendations.server.core.client.movie.service.MovieService;
 import bytetech.movierecmommendations.server.entities.main.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +15,11 @@ import java.util.List;
 @RequestMapping("api/movie")
 public class MovieController {
 
-    @Autowired
-    private MovieService movieService;
+    private final MovieService movieService;
+
+    public MovieController(MovieService movieService) {
+        this.movieService = movieService;
+    }
 
     @GetMapping("/search")
     public ResponseEntity<List<Movie>> searchMovie(@RequestParam String keyword) {
