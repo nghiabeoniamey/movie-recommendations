@@ -26,7 +26,7 @@ public class DBGenerator {
 
 
     private void generateData() {
-//        service....
+        service.generateUser();
     }
 
 }
