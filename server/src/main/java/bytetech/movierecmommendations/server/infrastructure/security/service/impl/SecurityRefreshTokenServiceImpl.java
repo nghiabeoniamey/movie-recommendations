@@ -121,6 +121,7 @@ public class SecurityRefreshTokenServiceImpl implements SecurityRefreshTokenServ
 
         } catch (Exception e) {
             log.info("😢😢 ~> Error encrypt register");
+            e.printStackTrace(System.out);
             return ResponseObject.errorForward(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }

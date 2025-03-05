@@ -1,11 +1,11 @@
-package bytetech.movierecmommendations.server.core.admin.user.service.impl;
+package bytetech.movierecmommendations.server.core.user.account.service.impl;
 
-import bytetech.movierecmommendations.server.core.admin.user.model.request.AdminFindUserRequest;
-import bytetech.movierecmommendations.server.core.admin.user.model.request.AdminUserRequest;
-import bytetech.movierecmommendations.server.core.admin.user.repository.AdminUserRepository;
-import bytetech.movierecmommendations.server.core.admin.user.service.AdminUserService;
 import bytetech.movierecmommendations.server.core.common.base.PageableObject;
 import bytetech.movierecmommendations.server.core.common.base.ResponseObject;
+import bytetech.movierecmommendations.server.core.user.account.model.request.UserFindAccountRequest;
+import bytetech.movierecmommendations.server.core.user.account.model.request.UserAccountRequest;
+import bytetech.movierecmommendations.server.core.user.account.repository.UserAccountRepository;
+import bytetech.movierecmommendations.server.core.user.account.service.UserAccountService;
 import bytetech.movierecmommendations.server.entities.main.User;
 import bytetech.movierecmommendations.server.infrastructure.constants.module.Message;
 import bytetech.movierecmommendations.server.infrastructure.constants.module.RoleConstant;
@@ -19,12 +19,12 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AdminUserServiceImpl implements AdminUserService {
+public class UserAccountServiceImpl implements UserAccountService {
 
-    private final AdminUserRepository userRepository;
+    private final UserAccountRepository userRepository;
 
     @Override
-    public ResponseObject<?> getUsers(AdminFindUserRequest request) {
+    public ResponseObject<?> getUsers(UserFindAccountRequest request) {
         Pageable pageable = Helper.createPageable(request);
         return new ResponseObject<>(
                 PageableObject.of(userRepository.getUsers(pageable, request)),
@@ -43,7 +43,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public ResponseObject<?> createUser(AdminUserRequest request) {
+    public ResponseObject<?> createUser(UserAccountRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             return ResponseObject.errorForward(
                     HttpStatus.BAD_REQUEST,
@@ -66,7 +66,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public ResponseObject<?> updateUser(String id, AdminUserRequest request) {
+    public ResponseObject<?> updateUser(String id, UserAccountRequest request) {
         try {
             Optional<User> userOptional = userRepository.findById(id);
             if (userOptional.isEmpty()) {

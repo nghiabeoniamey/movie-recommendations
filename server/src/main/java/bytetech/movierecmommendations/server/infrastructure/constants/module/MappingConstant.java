@@ -22,12 +22,16 @@ public class MappingConstant {
     // admin
     public static final String API_ADMIN_ANOTHER = API_ADMIN_PREFIX + "/another";
     public static final String API_ADMIN_USER = API_ADMIN_PREFIX + "/user";
+    public static final String API_ADMIN_REVIEW = API_ADMIN_PREFIX + "/review";
 
     // user
     public static final String API_USER_ANOTHER = API_USER_PREFIX + "/another";
+    public static final String API_USER_ACCOUNT = API_USER_PREFIX + "/user";
+    public static final String API_USER_REVIEW = API_USER_PREFIX + "/review";
 
     // employee
     public static final String API_CLIENT_ANOTHER = API_CLIENT_PREFIX + "/another";
+    public static final String API_CLIENT_REVIEW = API_CLIENT_PREFIX + "/review";
 
     public static final String API_COMMON_ANOTHER = API_COMMON + "/another";
 
