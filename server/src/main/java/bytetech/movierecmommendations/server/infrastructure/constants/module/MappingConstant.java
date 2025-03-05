@@ -34,6 +34,9 @@ public class MappingConstant {
     /* AUTHENTICATION */
     public static final String API_AUTH_PREFIX = API_VERSION_PREFIX + "/auth";
 
+    /* SWAGGER */
+    public static final String API_SWAGGER = API_VERSION_PREFIX + "/swagger-ui";
+
     public static final String PATH_OAUTH2 = "/oauth2";
 
 }

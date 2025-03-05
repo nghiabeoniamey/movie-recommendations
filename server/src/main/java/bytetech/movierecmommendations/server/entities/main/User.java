@@ -26,7 +26,7 @@ public class User extends PrimaryEntity implements Serializable {
     @Column(name = "full_name", length = EntityProperties.LENGTH_NAME)
     private String fullName;
 
-    @Column(name = "phone_number", unique = true)
+    @Column(name = "phone_number", length = EntityProperties.LENGTH_PHONE_NUMBER, unique = true)
     private String phoneNumber;
 
     @Column(length = EntityProperties.LENGTH_CODE, unique = true)
