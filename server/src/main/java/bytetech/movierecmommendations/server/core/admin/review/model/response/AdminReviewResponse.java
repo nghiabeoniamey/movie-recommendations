@@ -10,6 +10,8 @@ public interface AdminReviewResponse extends BaseResponse {
 
     String getUserId();
 
+    String getMovieId();
+
     Long getCreatedDate();
 
     Long getLastModifiedDate();

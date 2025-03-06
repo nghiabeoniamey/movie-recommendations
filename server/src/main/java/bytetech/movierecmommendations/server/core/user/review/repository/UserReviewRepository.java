@@ -27,7 +27,7 @@ public interface UserReviewRepository extends ReviewerRepository {
                 r.comment LIKE CONCAT('%', :#{#req.keyword}, '%') OR
                 r.rating LIKE CONCAT('%', :#{#req.keyword}, '%'))
             AND (:#{#req.startDate} IS NULL OR :#{#req.endDate} IS NULL OR r.created_date BETWEEN :#{#req.startDate} AND :#{#req.endDate})
-            AND (:#{#req.movieId} IS NULL OR r.id = :#{#req.movieId})
+            AND (:#{#req.movie} IS NULL OR r.movie_id = :#{#req.movie})
             AND (:#{#req.rating} IS NULL OR r.rating = :#{#req.rating})
             AND r.deleted = false
             """, countQuery = """
@@ -38,7 +38,7 @@ public interface UserReviewRepository extends ReviewerRepository {
                 r.comment LIKE CONCAT('%', :#{#req.keyword}, '%') OR
                 r.rating LIKE CONCAT('%', :#{#req.keyword}, '%'))
             AND (:#{#req.startDate} IS NULL OR :#{#req.endDate} IS NULL OR r.created_date BETWEEN :#{#req.startDate} AND :#{#req.endDate})
-            AND (:#{#req.movieId} IS NULL OR r.id = :#{#req.movieId})
+            AND (:#{#req.movie} IS NULL OR r.movie_id = :#{#req.movie})
             AND (:#{#req.rating} IS NULL OR r.rating = :#{#req.rating})
             AND r.deleted = false
             """, nativeQuery = true)
