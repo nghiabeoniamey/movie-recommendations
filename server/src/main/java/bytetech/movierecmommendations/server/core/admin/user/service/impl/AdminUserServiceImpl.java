@@ -67,39 +67,32 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public ResponseObject<?> updateUser(String id, AdminUserRequest request) {
-        try {
-            Optional<User> userOptional = userRepository.findById(id);
-            if (userOptional.isEmpty()) {
-                return ResponseObject.errorForward(
-                        HttpStatus.BAD_REQUEST,
-                        Message.Response.NOT_FOUND + ", người dùng"
-                );
-            }
-            User newUser = userOptional.get();
-            if (!newUser.getEmail().equals(request.getEmail()) &&
-                    userRepository.existsByEmail(request.getEmail())) {
-                return ResponseObject.errorForward(
-                        HttpStatus.BAD_REQUEST,
-                        Message.Response.DUPLICATE + ", email"
-                );
-            }
-            newUser.setFullName(request.getUserName());
-            newUser.setEmail(request.getEmail());
-            newUser.setPassword(request.getPassword());
-            newUser.setProfilePicture(request.getProfilePicture());
-            RoleConstant role = request.getRole() == 0 ? RoleConstant.ADMIN : RoleConstant.USER;
-            newUser.setRoleConstant(role);
-            userRepository.save(newUser);
-            return ResponseObject.successForward(
-                    HttpStatus.CREATED,
-                    Message.Success.UPDATE_SUCCESS
-            );
-        } catch (Exception e) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
             return ResponseObject.errorForward(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    e.getMessage()
+                    HttpStatus.BAD_REQUEST,
+                    Message.Response.NOT_FOUND + ", người dùng"
             );
         }
+        User newUser = userOptional.get();
+        if (!newUser.getEmail().equals(request.getEmail()) &&
+                userRepository.existsByEmail(request.getEmail())) {
+            return ResponseObject.errorForward(
+                    HttpStatus.BAD_REQUEST,
+                    Message.Response.DUPLICATE + ", email"
+            );
+        }
+        newUser.setFullName(request.getUserName());
+        newUser.setEmail(request.getEmail());
+        newUser.setPassword(request.getPassword());
+        newUser.setProfilePicture(request.getProfilePicture());
+        RoleConstant role = request.getRole() == 0 ? RoleConstant.ADMIN : RoleConstant.USER;
+        newUser.setRoleConstant(role);
+        userRepository.save(newUser);
+        return ResponseObject.successForward(
+                HttpStatus.CREATED,
+                Message.Success.UPDATE_SUCCESS
+        );
     }
 
     @Override

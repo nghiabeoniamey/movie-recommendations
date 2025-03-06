@@ -24,6 +24,7 @@ public class MappingConstant {
     public static final String API_ADMIN_USER = API_ADMIN_PREFIX + "/user";
     public static final String API_ADMIN_REVIEW = API_ADMIN_PREFIX + "/review";
     public static final String API_ADMIN_CATEGORY = API_ADMIN_PREFIX + "/category";
+    public static final String API_ADMIN_MOVIE = API_ADMIN_PREFIX + "/movie";
 
     // user
     public static final String API_USER_ANOTHER = API_USER_PREFIX + "/another";
