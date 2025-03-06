@@ -26,4 +26,6 @@ public interface AdminMovieResponse extends BaseResponse {
 
     Long getLastModifiedDate();
 
+    Double getRating();
+
 }

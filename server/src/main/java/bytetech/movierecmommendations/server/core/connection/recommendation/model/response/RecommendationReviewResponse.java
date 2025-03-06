@@ -1,6 +1,6 @@
 package bytetech.movierecmommendations.server.core.connection.recommendation.model.response;
 
-public interface RecommendationReviewResponse {
+public interface    RecommendationReviewResponse {
 
     String getUserId();
 
