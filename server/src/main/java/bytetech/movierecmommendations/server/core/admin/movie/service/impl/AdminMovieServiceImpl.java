@@ -55,7 +55,6 @@ public class AdminMovieServiceImpl implements AdminMovieService {
                 List<AdminMovieCategoryResponse> categories = movieRepository.findCategoryByMoviesIds(movieIds);
 
                 Map<String, List<AdminMovieCategoryResponse>> categoryMap = categories.stream()
-                        .distinct()
                         .collect(Collectors.groupingBy(
                                 AdminMovieCategoryResponse::getMovieId
                         ));
@@ -70,6 +69,7 @@ public class AdminMovieServiceImpl implements AdminMovieService {
                     movieMap.put("author", movie.getAuthor());
                     movieMap.put("actor", movie.getActor());
                     movieMap.put("year", movie.getYear());
+                    movieMap.put("rating", movie.getRating());
                     movieMap.put("createdDate", movie.getCreatedDate());
                     movieMap.put("lastModifiedDate", movie.getLastModifiedDate());
                     movieMap.put("categories", categoryMap.getOrDefault(movie.getId(), new ArrayList<>()));
@@ -117,6 +117,7 @@ public class AdminMovieServiceImpl implements AdminMovieService {
                 responseMap.put("author", movieResponse.getAuthor());
                 responseMap.put("actor", movieResponse.getActor());
                 responseMap.put("year", movieResponse.getYear());
+                responseMap.put("rating", movieResponse.getRating());
                 responseMap.put("createdDate", movieResponse.getCreatedDate());
                 responseMap.put("lastModifiedDate", movieResponse.getLastModifiedDate());
                 responseMap.put("categories", categories != null ? categories : Collections.emptyList());

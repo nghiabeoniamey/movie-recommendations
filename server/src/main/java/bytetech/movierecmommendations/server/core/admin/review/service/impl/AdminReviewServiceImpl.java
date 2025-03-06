@@ -26,7 +26,6 @@ public class AdminReviewServiceImpl implements AdminReviewService {
     @Override
     public ResponseObject<?> getReviews(AdminFindReviewRequest request) {
         try {
-            log.info("Get reviews: {}", request.toString());
             Pageable pageable = Helper.createPageable(request);
             return new ResponseObject<>(
                     PageableObject.of(reviewRepository.getReviews(pageable, request)),

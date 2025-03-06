@@ -10,7 +10,7 @@ public class MappingConstant {
 
     public static final String API_VERSION_PREFIX = "/api/v1";
     public static final String API_COMMON = API_VERSION_PREFIX + "/common";
-    public static final String API_RECOMMENDATION = API_VERSION_PREFIX + "/recommendation";
+    public static final String API_CONNECTION = API_VERSION_PREFIX + "/connection";
 
     public static final String API_GUEST_GUARD_ACCOUNT = "/api/guest-guard/account";
 
@@ -35,6 +35,10 @@ public class MappingConstant {
     // employee
     public static final String API_CLIENT_ANOTHER = API_CLIENT_PREFIX + "/another";
     public static final String API_CLIENT_REVIEW = API_CLIENT_PREFIX + "/review";
+
+    // connection
+    public static final String API_CONNECTION_PYTHON = API_CONNECTION + "/python";
+    public static final String API_CONNECTION_RECOMMENDATION = API_CONNECTION + "/recommendation";
 
     public static final String API_COMMON_ANOTHER = API_COMMON + "/another";
 

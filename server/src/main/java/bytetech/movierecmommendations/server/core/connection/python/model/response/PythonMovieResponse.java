@@ -1,8 +1,10 @@
-package bytetech.movierecmommendations.server.core.admin.movie.model.response;
+package bytetech.movierecmommendations.server.core.connection.python.model.response;
+
+import bytetech.movierecmommendations.server.core.admin.movie.model.response.AdminMovieCategoryResponse;
 
 import java.util.List;
 
-public interface AdminModifyMovieResponse {
+public interface PythonMovieResponse {
 
     String getId();
 
@@ -25,7 +27,5 @@ public interface AdminModifyMovieResponse {
     Long getCreatedDate();
 
     Long getLastModifiedDate();
-
-    Double getRating();
 
 }
