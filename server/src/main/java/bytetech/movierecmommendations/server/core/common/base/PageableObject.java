@@ -23,8 +23,19 @@ public class PageableObject<T> {
         this.totalElements = page.getTotalElements();
     }
 
+    public PageableObject(List<T> data, long totalPages, int currentPage, long totalElements) {
+        this.data = data;
+        this.totalPages = totalPages;
+        this.currentPage = currentPage;
+        this.totalElements = totalElements;
+    }
+
     public static <T> PageableObject<T> of(Page<T> page) {
         return new PageableObject<>(page);
+    }
+
+    public static <T> PageableObject<T> of(List<T> data, long totalPages, int currentPage, long totalElements) {
+        return new PageableObject<>(data, totalPages, currentPage, totalElements);
     }
 
 }
