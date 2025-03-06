@@ -31,4 +31,5 @@ public class DBGenEntityServiceImpl implements DBGenEntityService {
             userRepository.saveAll(users);
         }
     }
+
 }

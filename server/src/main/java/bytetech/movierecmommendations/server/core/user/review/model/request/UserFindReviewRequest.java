@@ -15,7 +15,7 @@ public class UserFindReviewRequest extends PageableRequest {
 
     private String keyword;
 
-    private String movieId;
+    private String movie;
 
     private Integer rating;
 

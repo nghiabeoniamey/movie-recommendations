@@ -41,7 +41,10 @@ import java.util.List;
 public class SecurityConfig {
 
     @Value("${frontend.url}")
-    private String allowedOrigin;
+    private String reactOrigin;
+
+    @Value("${python.url}")
+    private String pythonOrigin;
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
@@ -71,18 +74,27 @@ public class SecurityConfig {
         CorsConfiguration publicApiConfig = new CorsConfiguration();
         publicApiConfig.setAllowedOrigins(Collections.singletonList("*"));
         publicApiConfig.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "*"));
-        publicApiConfig.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
+        publicApiConfig.setAllowedMethods(List.of("GET", "POST", "OPTIONS", "OPTIONS", "PATCH"));
         publicApiConfig.setAllowCredentials(false);
         publicApiConfig.setExposedHeaders(List.of("Authorization"));
         source.registerCorsConfiguration(MappingConstant.API_EMBED_PREFIX + "/**", publicApiConfig);
 
         CorsConfiguration defaultConfig = new CorsConfiguration();
-        defaultConfig.setAllowedOrigins(Collections.singletonList(allowedOrigin));
+        defaultConfig.setAllowedOrigins(Collections.singletonList(reactOrigin));
         defaultConfig.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "*"));
         defaultConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         defaultConfig.setAllowCredentials(true);
         defaultConfig.setExposedHeaders(List.of("Authorization"));
         source.registerCorsConfiguration("/**", defaultConfig);
+
+        CorsConfiguration pythonConfig = new CorsConfiguration();
+        pythonConfig.setAllowedOrigins(Collections.singletonList(pythonOrigin));
+        pythonConfig.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "*"));
+        pythonConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        pythonConfig.setAllowCredentials(true);
+        pythonConfig.setExposedHeaders(List.of("Authorization"));
+        source.registerCorsConfiguration("/**", pythonConfig);
+
 
         return source;
     }
@@ -112,6 +124,7 @@ public class SecurityConfig {
                                 Helper.appendWildcard(MappingConstant.API_AUTH_PREFIX),
                                 Helper.appendWildcard(MappingConstant.PATH_OAUTH2),
                                 Helper.appendWildcard(MappingConstant.API_EMBED_PREFIX),
+                                Helper.appendWildcard(MappingConstant.API_RECOMMENDATION),
                                 Helper.appendWildcard(MappingConstant.API_SWAGGER),
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",

@@ -24,5 +24,5 @@ public class WatchHistory extends PrimaryEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
-
+ 
 }

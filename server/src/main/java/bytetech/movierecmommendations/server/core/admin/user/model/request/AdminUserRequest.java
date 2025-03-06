@@ -4,6 +4,7 @@ import bytetech.movierecmommendations.server.infrastructure.constants.module.Mes
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class AdminUserRequest {
     @Size(min = 8, max = 100, message = Message.Validate.SIZE100)
     private String profilePicture;
 
+    @NotNull(message = "Role không được để trống")
     private Integer role;
 
 }
