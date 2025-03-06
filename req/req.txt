@@ -1,0 +1,42 @@
+1. Collaborative Filtering (Lọc cộng tác)
+Ví dụ minh họa:
+Giả sử bạn có một nền tảng xem phim trực tuyến. Hệ thống sẽ thu thập dữ liệu từ hành vi của người dùng, như:
+
+Hồ sơ người dùng: Tuổi, giới tính, khu vực, sở thích chung.
+Hành vi xem phim: Lịch sử xem, đánh giá, thời gian xem.
+Cách hoạt động:
+
+Nếu nhóm người dùng có cùng đặc điểm (ví dụ: người dùng từ Hà Nội, tuổi từ 25-35 và thích phim hành động) đều đánh giá cao một bộ phim cụ thể, hệ thống sẽ suy ra rằng những người có đặc điểm tương tự có khả năng cũng sẽ thích bộ phim đó.
+Ví dụ, nếu “Anh A” (25 tuổi, sống tại Hà Nội, thích phim hành động) và “Chị B” (28 tuổi, Hà Nội, cùng sở thích) đều đánh giá bộ phim “Siêu Anh Hùng X” rất cao, thì khi “Anh C” (cùng nhóm đặc điểm nhưng chưa xem phim này) truy cập, hệ thống sẽ gợi ý “Siêu Anh Hùng X” cho anh ấy.
+Kỹ thuật hỗ trợ:
+
+Matrix Factorization: Tách ma trận người dùng – phim thành các thành phần ẩn, qua đó dự đoán các đánh giá còn thiếu.
+kNN (k-Nearest Neighbors): Tìm những người dùng có hành vi tương đồng và dựa vào đó gợi ý phim.
+
+
+
+2. Content-Based Filtering (Lọc theo nội dung)
+Ví dụ minh họa:
+
+Phân tích đặc trưng phim: Mỗi bộ phim được gán các thuộc tính như thể loại, đạo diễn, diễn viên, kịch bản…
+Hồ sơ sở thích của người dùng: Người dùng có thể chọn hoặc hệ thống tự động ghi nhận các thể loại phim mà họ thường xem và đánh giá cao.
+Cách hoạt động:
+
+Nếu “Người dùng A” thích các phim thuộc thể loại “hài hước – lãng mạn”, hệ thống sẽ phân tích các đặc trưng của những bộ phim đó (ví dụ: có diễn viên nổi tiếng, phong cách kể chuyện nhẹ nhàng) và gợi ý cho người dùng những bộ phim có đặc trưng tương tự.
+Một ví dụ khác là như ứng dụng TikTok, nơi người dùng có thể chọn những thể loại nội dung họ yêu thích. Sau đó, hệ thống sẽ dựa trên những lựa chọn này để gợi ý thêm các video có nội dung tương tự.
+
+
+3. Hybrid Approach (Phương pháp kết hợp)
+Ví dụ minh họa:
+
+Kết hợp điểm số: Giả sử hệ thống dựa vào Collaborative Filtering đưa ra danh sách phim được nhiều người dùng tương đồng đánh giá cao, đồng thời Content-Based Filtering cũng gợi ý những bộ phim có đặc trưng tương đồng với những phim người dùng đã xem.
+Quy trình:
+Collaborative Filtering: Tìm ra các phim “hot” trong nhóm người dùng có đặc điểm giống nhau.
+Content-Based Filtering: Lọc thêm những phim có nội dung, thể loại tương tự với sở thích cá nhân.
+Tích hợp: Kết hợp kết quả từ hai phương pháp này, có thể bằng cách gán trọng số cho mỗi phương pháp, nhằm đưa ra gợi ý cuối cùng chính xác hơn.
+Đánh giá hiệu năng:
+Để đảm bảo rằng các gợi ý được cải thiện, hệ thống sử dụng các chỉ số như:
+
+Precision: Tỷ lệ phim được gợi ý mà thực sự người dùng yêu thích.
+Recall: Tỷ lệ phim yêu thích của người dùng mà hệ thống đã gợi ý.
+RMSE (Root Mean Square Error): Đánh giá mức độ sai số giữa đánh giá dự đoán và đánh giá thực tế, giúp hiệu chỉnh mô hình.

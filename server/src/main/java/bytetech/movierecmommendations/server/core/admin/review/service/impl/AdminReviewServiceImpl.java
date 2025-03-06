@@ -9,12 +9,14 @@ import bytetech.movierecmommendations.server.entities.main.Reviewer;
 import bytetech.movierecmommendations.server.infrastructure.constants.module.Message;
 import bytetech.movierecmommendations.server.util.Helper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminReviewServiceImpl implements AdminReviewService {
@@ -24,6 +26,7 @@ public class AdminReviewServiceImpl implements AdminReviewService {
     @Override
     public ResponseObject<?> getReviews(AdminFindReviewRequest request) {
         try {
+            log.info("Get reviews: {}", request.toString());
             Pageable pageable = Helper.createPageable(request);
             return new ResponseObject<>(
                     PageableObject.of(reviewRepository.getReviews(pageable, request)),

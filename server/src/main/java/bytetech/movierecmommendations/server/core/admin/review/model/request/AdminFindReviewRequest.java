@@ -16,7 +16,7 @@ public class AdminFindReviewRequest extends PageableRequest {
 
     private String keyword;
 
-    private String movieId;
+    private String movie;
 
     private Integer rating;
 

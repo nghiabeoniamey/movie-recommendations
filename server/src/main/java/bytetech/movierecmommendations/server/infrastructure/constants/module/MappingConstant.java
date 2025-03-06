@@ -10,6 +10,7 @@ public class MappingConstant {
 
     public static final String API_VERSION_PREFIX = "/api/v1";
     public static final String API_COMMON = API_VERSION_PREFIX + "/common";
+    public static final String API_RECOMMENDATION = API_VERSION_PREFIX + "/recommendation";
 
     public static final String API_GUEST_GUARD_ACCOUNT = "/api/guest-guard/account";
 
