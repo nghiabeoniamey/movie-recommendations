@@ -31,4 +31,8 @@ public class MovieFilterRequest {
     @Column(length = EntityProperties.LENGTH_URL)
     private String movies;
 
+    private String movieId;
+
+    public MovieFilterRequest(String title, String categoryId, String description, String author, String actor, Integer year) {
+    }
 }
