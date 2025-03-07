@@ -26,11 +26,13 @@ public interface AdminMovieMRepository extends MovieRepository {
                 m.actor AS actor,
                 m.year AS year,
                 m.created_date AS createdDate,
-                m.last_modified_date AS lastModifiedDate
+                m.last_modified_date AS lastModifiedDate,
+                ROUND(AVG(r.rating * 2), 1) AS rating
             FROM
                 movie m
             LEFT JOIN movie_category mc on m.id = mc.movie_id
             LEFT JOIN category c on c.id = mc.category_id
+            LEFT JOIN reviewer r on r.movie_id = m.id
             WHERE
                 (:#{#req.keyword} IS NULL OR
                 m.title LIKE CONCAT('%', :#{#req.keyword}, '%') OR
@@ -39,11 +41,22 @@ public interface AdminMovieMRepository extends MovieRepository {
                 m.author LIKE CONCAT('%', :#{#req.keyword}, '%')
             AND (:#{#req.startDate} IS NULL OR :#{#req.endDate} IS NULL OR m.year BETWEEN :#{#req.startDate} AND :#{#req.endDate})
             AND c.id IN (:#{#req.categoryId})
+            GROUP BY m.id,
+                     m.title,
+                     m.description,
+                     m.picture,
+                     m.movies,
+                     m.author,
+                     m.actor,
+                     m.year,
+                     m.created_date,
+                     m.last_modified_date
             """, countQuery = """
             SELECT
                 COUNT(m.id) FROM movie m
             LEFT JOIN movie_category mc on m.id = mc.movie_id
             LEFT JOIN category c on c.id = mc.category_id
+            LEFT JOIN reviewer r on r.movie_id = m.id
             WHERE
                 (:#{#req.keyword} IS NULL OR
                 m.title LIKE CONCAT('%', :#{#req.keyword}, '%') OR
@@ -52,6 +65,16 @@ public interface AdminMovieMRepository extends MovieRepository {
                 m.author LIKE CONCAT('%', :#{#req.keyword}, '%')
             AND (:#{#req.startDate} IS NULL OR :#{#req.endDate} IS NULL OR m.year BETWEEN :#{#req.startDate} AND :#{#req.endDate})
             AND c.id IN (:#{#req.categoryId})
+            GROUP BY m.id,
+                     m.title,
+                     m.description,
+                     m.picture,
+                     m.movies,
+                     m.author,
+                     m.actor,
+                     m.year,
+                     m.created_date,
+                     m.last_modified_date
             """, nativeQuery = true)
     Page<AdminMovieResponse> getMovies(Pageable pageable, @Param("req") AdminFindMovieRequest req);
 
@@ -66,9 +89,21 @@ public interface AdminMovieMRepository extends MovieRepository {
                 m.actor AS actor,
                 m.year AS year,
                 m.created_date AS createdDate,
-                m.last_modified_date AS lastModifiedDate
+                m.last_modified_date AS lastModifiedDate,
+                ROUND(AVG(r.rating * 2), 1) AS rating
             FROM movie m
+            LEFT JOIN reviewer r on r.movie_id = m.id
             WHERE m.id = :id
+            GROUP BY m.id,
+                     m.title,
+                     m.description,
+                     m.picture,
+                     m.movies,
+                     m.author,
+                     m.actor,
+                     m.year,
+                     m.created_date,
+                     m.last_modified_date
             """, nativeQuery = true)
     AdminModifyMovieResponse findMovieById(String id);
 

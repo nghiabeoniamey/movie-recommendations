@@ -80,21 +80,12 @@ public class SecurityConfig {
         source.registerCorsConfiguration(MappingConstant.API_EMBED_PREFIX + "/**", publicApiConfig);
 
         CorsConfiguration defaultConfig = new CorsConfiguration();
-        defaultConfig.setAllowedOrigins(Collections.singletonList(reactOrigin));
+        defaultConfig.setAllowedOrigins(List.of(reactOrigin, pythonOrigin));
         defaultConfig.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "*"));
         defaultConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         defaultConfig.setAllowCredentials(true);
         defaultConfig.setExposedHeaders(List.of("Authorization"));
         source.registerCorsConfiguration("/**", defaultConfig);
-
-        CorsConfiguration pythonConfig = new CorsConfiguration();
-        pythonConfig.setAllowedOrigins(Collections.singletonList(pythonOrigin));
-        pythonConfig.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "*"));
-        pythonConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        pythonConfig.setAllowCredentials(true);
-        pythonConfig.setExposedHeaders(List.of("Authorization"));
-        source.registerCorsConfiguration("/**", pythonConfig);
-
 
         return source;
     }
@@ -124,8 +115,9 @@ public class SecurityConfig {
                                 Helper.appendWildcard(MappingConstant.API_AUTH_PREFIX),
                                 Helper.appendWildcard(MappingConstant.PATH_OAUTH2),
                                 Helper.appendWildcard(MappingConstant.API_EMBED_PREFIX),
-                                Helper.appendWildcard(MappingConstant.API_RECOMMENDATION),
+                                Helper.appendWildcard(MappingConstant.API_CONNECTION_RECOMMENDATION),
                                 Helper.appendWildcard(MappingConstant.API_SWAGGER),
+                                Helper.appendWildcard(MappingConstant.API_CONNECTION_PYTHON),
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
