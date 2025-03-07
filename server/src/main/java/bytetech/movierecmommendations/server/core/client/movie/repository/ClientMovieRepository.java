@@ -1,7 +1,10 @@
 package bytetech.movierecmommendations.server.core.client.movie.repository;
 
+import bytetech.movierecmommendations.server.core.client.movie.model.request.MovieFilterRequest;
 import bytetech.movierecmommendations.server.entities.main.Movie;
 import bytetech.movierecmommendations.server.repository.MovieRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -37,4 +40,12 @@ public interface ClientMovieRepository extends MovieRepository {
             END DESC
         """, nativeQuery = true)
     List<Movie> filterMovies(@Param("sortBy") String sortBy);
+
+    @Query("SELECT m FROM Movie m " +
+            "WHERE (:movieId IS NULL OR m.id = :movieId) " +
+            "AND m.deleted = false " +
+            "ORDER BY m.createdDate DESC")
+    Page<Movie> findAllByFilter(@Param("movieId") String movieId, Pageable pageable);
+
+
 }
