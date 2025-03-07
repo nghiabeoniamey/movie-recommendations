@@ -1,7 +1,6 @@
 package bytetech.movierecmommendations.server.entities.base;
 
 import bytetech.movierecmommendations.server.infrastructure.event.AuditEntityListener;
-import bytetech.movierecmommendations.server.infrastructure.event.AuditHistoryListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -15,7 +14,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Getter
 @Setter
 @MappedSuperclass
-@EntityListeners({AuditEntityListener.class, AuditHistoryListener.class})
+@EntityListeners({AuditEntityListener.class, AuditEntityListener.class})
 public abstract class AuditEntity {
 
     @Column(name = "created_date")

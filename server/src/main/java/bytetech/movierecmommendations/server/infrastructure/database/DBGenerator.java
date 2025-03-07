@@ -24,9 +24,30 @@ public class DBGenerator {
         if ("true".equals(isGenerated)) generateData();
     }
 
-
+    @PostConstruct
+    public void category() {
+        if ("true".equals(isGenerated)) generateDataCategory();
+    }
+    @PostConstruct
+    public void Movie() {
+        if ("true".equals(isGenerated)) generateDataMovie();
+    }
+    @PostConstruct
+    public void Review() {
+        if ("true".equals(isGenerated)) generateDataReview();
+    }
     private void generateData() {
         service.generateUser();
     }
+    private void generateDataCategory() {
+        service.generateCategory();
+    }
 
+    private void generateDataMovie() {
+        service.generateMovie();
+    }
+
+    private void generateDataReview() {
+        service.generateReview();
+    }
 }
