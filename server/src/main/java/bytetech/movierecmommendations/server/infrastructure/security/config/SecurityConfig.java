@@ -107,6 +107,7 @@ public class SecurityConfig {
                         "/*/*.jpg",
                         "/*/*.html",
                         "/*/*.css",
+
                         "/*/*.js"
                 )
                 .permitAll());
