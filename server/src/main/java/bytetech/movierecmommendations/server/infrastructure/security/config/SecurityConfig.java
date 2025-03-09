@@ -107,7 +107,6 @@ public class SecurityConfig {
                         "/*/*.jpg",
                         "/*/*.html",
                         "/*/*.css",
-
                         "/*/*.js"
                 )
                 .permitAll());
@@ -143,7 +142,10 @@ public class SecurityConfig {
                 auth -> auth.requestMatchers(
                                 Helper.appendWildcard(MappingConstant.API_USER_PREFIX)
                         )
-                        .hasAnyAuthority(RoleConstant.USER.name())
+                        .hasAnyAuthority(
+                                RoleConstant.ADMIN.name(),
+                                RoleConstant.USER.name()
+                        )
         );
         http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
         http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));

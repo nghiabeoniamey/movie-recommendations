@@ -137,6 +137,7 @@ def hybrid_recommendation(users: List[dict], movies: List[dict], reviews: List[d
     for m_id in movie_scores.keys():
         if rating_counts[m_id] > 0:
             movie_scores[m_id] /= rating_counts[m_id]
+            print(f"Point: {movie_scores[m_id]}")
         else:
             movie_scores[m_id] = 0  # Nếu không có đánh giá, điểm mặc định là 0
 
@@ -167,8 +168,8 @@ def hybrid_recommendation(users: List[dict], movies: List[dict], reviews: List[d
     # 3. Kết hợp kết quả và sắp xếp phim theo điểm số
     sorted_movies = sorted(movie_scores.items(), key=lambda x: x[1], reverse=True)
 
-    # Mặc định trả về 20 phim
-    recommended_ids = [movie_id for movie_id, _ in sorted_movies[:20]]
+    # Mặc định trả về 10 phim
+    recommended_ids = [movie_id for movie_id, _ in sorted_movies[:10]]
 
     print(f"Recommended movies: {recommended_ids}")
     return recommended_ids

@@ -65,7 +65,7 @@ public class AdminMovieServiceImpl implements AdminMovieService {
                     movieMap.put("title", movie.getTitle());
                     movieMap.put("description", movie.getDescription());
                     movieMap.put("pictureURL", movie.getPictureURL());
-                    movieMap.put("moviesURL", movie.getMoviesURL());
+                    movieMap.put("moviesURL", movie.getMovieURL());
                     movieMap.put("author", movie.getAuthor());
                     movieMap.put("actor", movie.getActor());
                     movieMap.put("year", movie.getYear());
@@ -113,7 +113,7 @@ public class AdminMovieServiceImpl implements AdminMovieService {
                 responseMap.put("title", movieResponse.getTitle());
                 responseMap.put("description", movieResponse.getDescription());
                 responseMap.put("pictureURL", movieResponse.getPictureURL());
-                responseMap.put("moviesURL", movieResponse.getMoviesURL());
+                responseMap.put("moviesURL", movieResponse.getMovieURL());
                 responseMap.put("author", movieResponse.getAuthor());
                 responseMap.put("actor", movieResponse.getActor());
                 responseMap.put("year", movieResponse.getYear());

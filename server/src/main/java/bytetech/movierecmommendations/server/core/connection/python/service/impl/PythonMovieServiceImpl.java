@@ -8,6 +8,7 @@ import bytetech.movierecmommendations.server.infrastructure.constants.module.Mes
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,8 +26,15 @@ public class PythonMovieServiceImpl implements PythonMovieService {
     @Override
     public ResponseObject<?> getMoviesRecommendation() {
         List<String> movieIds = webClientService.callApiGetMoviesRecommendation();
+        if (movieIds != null && !movieIds.isEmpty()) {
+            return new ResponseObject<>(
+                    movieRepository.getMoviesByMovieIds(movieIds),
+                    HttpStatus.OK,
+                    Message.Success.GET_SUCCESS
+            );
+        }
         return new ResponseObject<>(
-                movieRepository.getMoviesByMovieIds(movieIds),
+                Collections.EMPTY_LIST,
                 HttpStatus.OK,
                 Message.Success.GET_SUCCESS
         );

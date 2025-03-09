@@ -21,12 +21,13 @@ public interface PythonMovieRepository extends MovieRepository {
                 m.actor AS actor,
                 m.year AS year,
                 m.created_date AS createdDate,
-                m.last_modified_date AS lastModifiedDate
+                m.last_modified_date AS lastModifiedDate,
+                COALESCE(ROUND(AVG(r.rating * 2), 1), 0) AS rating
             FROM
                 movie m
             LEFT JOIN movie_category mc on m.id = mc.movie_id
             LEFT JOIN category c on c.id = mc.category_id
-            WHERE m.deleted = false
+            LEFT JOIN reviewer r on r.movie_id = m.id
             GROUP BY m.id,
                      m.title,
                      m.description,

@@ -14,7 +14,7 @@ public interface PythonMovieResponse {
 
     String getPictureURL();
 
-    String getMoviesURL();
+    String getMovieURL();
 
     String getAuthor();
 
@@ -22,10 +22,10 @@ public interface PythonMovieResponse {
 
     Integer getYear();
 
-    List<AdminMovieCategoryResponse> getCategories();
-
     Long getCreatedDate();
 
     Long getLastModifiedDate();
+
+    Double getRating();
 
 }

@@ -12,7 +12,7 @@ public interface AdminMovieResponse extends BaseResponse {
 
     String getPictureURL();
 
-    String getMoviesURL();
+    String getMovieURL();
 
     String getAuthor();
 

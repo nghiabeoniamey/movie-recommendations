@@ -16,8 +16,8 @@ public interface RecommendationMovieRepository extends MovieRepository {
                   m.year AS releaseYear,
                   GROUP_CONCAT(c.id ORDER BY c.id SEPARATOR ', ') AS genres
             FROM movie m
-            JOIN movie_category mc ON m.id = mc.movie_id
-            JOIN category c ON c.id = mc.category_id
+            LEFT JOIN movie_category mc ON m.id = mc.movie_id
+            LEFT JOIN category c ON c.id = mc.category_id
             WHERE m.deleted = false
             GROUP BY m.id, m.year
             """, nativeQuery = true)

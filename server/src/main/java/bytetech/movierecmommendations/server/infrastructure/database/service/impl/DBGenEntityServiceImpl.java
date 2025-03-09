@@ -2,16 +2,19 @@ package bytetech.movierecmommendations.server.infrastructure.database.service.im
 
 import bytetech.movierecmommendations.server.entities.main.Category;
 import bytetech.movierecmommendations.server.entities.main.Movie;
+import bytetech.movierecmommendations.server.entities.main.MovieCategory;
 import bytetech.movierecmommendations.server.entities.main.Reviewer;
 import bytetech.movierecmommendations.server.entities.main.User;
 import bytetech.movierecmommendations.server.infrastructure.constants.module.RoleConstant;
 import bytetech.movierecmommendations.server.infrastructure.database.repository.DBGenCategoryRepository;
+import bytetech.movierecmommendations.server.infrastructure.database.repository.DBGenMovieCategoryRepository;
 import bytetech.movierecmommendations.server.infrastructure.database.repository.DBGenMovieRepository;
 import bytetech.movierecmommendations.server.infrastructure.database.repository.DBGenReviewRepository;
 import bytetech.movierecmommendations.server.infrastructure.database.repository.DBGenUserRepository;
 import bytetech.movierecmommendations.server.infrastructure.database.service.DBGenEntityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -25,13 +28,15 @@ public class DBGenEntityServiceImpl implements DBGenEntityService {
     private final DBGenCategoryRepository categoryRepository;
     private final DBGenMovieRepository movieRepository;
     private final DBGenReviewRepository reviewRepository;
+    private final DBGenMovieCategoryRepository movieCategoryRepository;
 
     public DBGenEntityServiceImpl(DBGenUserRepository userRepository, DBGenCategoryRepository categoryRepository,
-                                  DBGenMovieRepository movieRepository, DBGenReviewRepository reviewRepository) {
+                                  DBGenMovieRepository movieRepository, DBGenReviewRepository reviewRepository, DBGenMovieCategoryRepository movieCategoryRepository) {
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
         this.movieRepository = movieRepository;
         this.reviewRepository = reviewRepository;
+        this.movieCategoryRepository = movieCategoryRepository;
     }
 
     @Override
@@ -69,14 +74,14 @@ public class DBGenEntityServiceImpl implements DBGenEntityService {
         if (categoryRepository.count() == 0) {
             List<Category> categories = List.of(
                     new Category("Action", "Hành động"),
-                    new Category( "Comedy", "Hài hước"),
-                    new Category( "Drama", "Chính kịch"),
-                    new Category( "Horror", "Kinh dị"),
-                    new Category( "Sci-Fi", "Khoa học viễn tưởng"),
-                    new Category( "Romance", "Lãng mạn"),
-                    new Category( "Fantasy", "Giả tưởng"),
-                    new Category( "Thriller", "Giật gân"),
-                    new Category( "Mystery", "Bí ẩn"),
+                    new Category("Comedy", "Hài hước"),
+                    new Category("Drama", "Chính kịch"),
+                    new Category("Horror", "Kinh dị"),
+                    new Category("Sci-Fi", "Khoa học viễn tưởng"),
+                    new Category("Romance", "Lãng mạn"),
+                    new Category("Fantasy", "Giả tưởng"),
+                    new Category("Thriller", "Giật gân"),
+                    new Category("Mystery", "Bí ẩn"),
                     new Category("Animation", "Hoạt hình")
 
             );
@@ -122,6 +127,26 @@ public class DBGenEntityServiceImpl implements DBGenEntityService {
                     ))
                     .collect(Collectors.toList());
             reviewRepository.saveAll(reviews);
+        }
+    }
+
+    @Override
+    public void generateMovieCategory() {
+        List<Movie> movies = movieRepository.findAll();
+        List<Category> categories = categoryRepository.findAll();
+        if (categories.isEmpty() || movies.isEmpty()) {
+            log.error("Không thể tạo review vì user hoặc movie chưa có trong database.");
+            return;
+        }
+
+        if (movieCategoryRepository.count() == 0) {
+            List<MovieCategory> movieCategories = IntStream.rangeClosed(1, 70)
+                    .mapToObj(i -> new MovieCategory(
+                            movies.get(new Random().nextInt(movies.size())),
+                            categories.get(new Random().nextInt(categories.size()))
+                    ))
+                    .collect(Collectors.toList());
+            movieCategoryRepository.saveAll(movieCategories);
         }
     }
 

@@ -12,7 +12,7 @@ public interface AdminModifyMovieResponse {
 
     String getPictureURL();
 
-    String getMoviesURL();
+    String getMovieURL();
 
     String getAuthor();
 
