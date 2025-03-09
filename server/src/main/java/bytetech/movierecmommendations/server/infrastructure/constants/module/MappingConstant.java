@@ -31,7 +31,7 @@ public class MappingConstant {
     public static final String API_USER_ANOTHER = API_USER_PREFIX + "/another";
     public static final String API_USER_ACCOUNT = API_USER_PREFIX + "/user";
     public static final String API_USER_REVIEW = API_USER_PREFIX + "/review";
-
+    public static final String API_USER_MOVIE = API_USER_PREFIX + "/movie";
     // employee
     public static final String API_CLIENT_ANOTHER = API_CLIENT_PREFIX + "/another";
     public static final String API_CLIENT_REVIEW = API_CLIENT_PREFIX + "/review";

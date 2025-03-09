@@ -16,5 +16,5 @@ public interface MovieService {
     List<Movie> filterMovies(String sortBy);
     ResponseObject<Page<Movie>> getAll(MovieFilterRequest filterRequest, int page, int size);
 
-
+    ResponseObject<?> getMovieById(String id);
 }

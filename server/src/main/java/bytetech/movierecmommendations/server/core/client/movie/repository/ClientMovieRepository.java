@@ -1,6 +1,8 @@
 package bytetech.movierecmommendations.server.core.client.movie.repository;
 
+import bytetech.movierecmommendations.server.core.admin.movie.model.response.AdminMovieCategoryResponse;
 import bytetech.movierecmommendations.server.core.client.movie.model.request.MovieFilterRequest;
+import bytetech.movierecmommendations.server.core.client.movie.model.response.UserModifyMovieResponse;
 import bytetech.movierecmommendations.server.entities.main.Movie;
 import bytetech.movierecmommendations.server.repository.MovieRepository;
 import org.springframework.data.domain.Page;
@@ -47,5 +49,31 @@ public interface ClientMovieRepository extends MovieRepository {
             "ORDER BY m.createdDate DESC")
     Page<Movie> findAllByFilter(@Param("movieId") String movieId, Pageable pageable);
 
+    @Query(value = """
+            SELECT
+                c.id AS id,
+                c.name AS name,
+                c.description AS description
+            FROM category c
+            JOIN movie_category mc on c.id = mc.category_id AND mc.movie_id = :movieId
+            WHERE c.deleted = false
+            """, nativeQuery = true)
+    List<AdminMovieCategoryResponse> findCategoryByMoviesId(String movieId);
+    @Query(value = """
+            SELECT 
+                m.id AS id,
+                m.title AS title,
+                m.description AS description,
+                m.picture AS pictureURL,
+                m.movies AS movie,
+                m.author AS author,
+                m.actor AS actor,
+                m.year AS year,
+                m.created_date AS createdDate,
+                m.last_modified_date AS lastModifiedDate
+            FROM movie m
+            WHERE m.id = :id
+            """, nativeQuery = true)
+    UserModifyMovieResponse findMovieById(String id);
 
 }

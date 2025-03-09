@@ -4,14 +4,18 @@ import bytetech.movierecmommendations.server.core.client.movie.model.request.Mov
 import bytetech.movierecmommendations.server.core.client.movie.service.MovieService;
 import bytetech.movierecmommendations.server.core.common.base.ResponseObject;
 import bytetech.movierecmommendations.server.entities.main.Movie;
+import bytetech.movierecmommendations.server.infrastructure.constants.module.MappingConstant;
+import bytetech.movierecmommendations.server.util.Helper;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
-@RequestMapping("api/v1/movie")
+@RequestMapping(MappingConstant.API_USER_MOVIE)
+
+//@RequestMapping("api/v1/movie")
 public class MovieController {
 
     private final MovieService movieService;
@@ -35,11 +39,21 @@ public class MovieController {
         ResponseObject<Page<Movie>> response = movieService.getAll(filterRequest, page, size);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
-    @GetMapping("/search")
-    public ResponseEntity<List<Movie>> searchMovie(@RequestParam String keyword) {
-        List<Movie> rooms = movieService.searchMovie(keyword);
-        return ResponseEntity.ok(rooms);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getMovieById(@PathVariable String id) {
+        return Helper.createResponseEntity(movieService.getMovieById(id));
     }
+    @GetMapping("/search")
+    public ResponseEntity<?> searchMovies(@RequestParam String keyword) {
+        List<Movie> movies = movieService.searchMovie(keyword);
+        if (movies.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseObject<>(null, HttpStatus.NOT_FOUND, "Không tìm thấy phim nào"));
+        }
+        return ResponseEntity.ok(movies);
+    }
+
     @GetMapping("/filter")
     public ResponseEntity<List<Movie>> filterMovies(@RequestParam String sortBy) {
         List<Movie> movies = movieService.filterMovies(sortBy);
