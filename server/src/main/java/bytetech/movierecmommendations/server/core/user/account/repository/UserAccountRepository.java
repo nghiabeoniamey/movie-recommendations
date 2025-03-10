@@ -40,17 +40,19 @@ public interface UserAccountRepository extends UserRepository {
     Page<UserAccountResponse> getUsers(Pageable pageable, @Param("req") UserFindAccountRequest req);
 
     @Query(value = """
-                    SELECT
-                        u.id AS id,
-                        u.full_name AS name,
-                        u.email AS email,
-                        u.password AS password,
-                        u.profile_picture AS profilePicture,
-                        u.role_constant AS role,
-                        u.deleted AS deleted
-                    FROM user u
-            """, nativeQuery = true)
-    UserAccountResponse findUserById(String id);
+                SELECT
+                    u.id AS id,
+                    u.full_name AS name,
+                    u.email AS email,
+                    u.password AS password,
+                    u.profile_picture AS profilePicture,
+                    u.role_constant AS role,
+                    u.deleted AS deleted
+                FROM user u
+                WHERE u.id = :id
+        """, nativeQuery = true)
+    UserAccountResponse findUserById(@Param("id") String id);
+
 
     boolean existsByEmail(String email);
 

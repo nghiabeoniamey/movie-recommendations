@@ -1,6 +1,7 @@
 package bytetech.movierecmommendations.server.core.user.account.service;
 
 import bytetech.movierecmommendations.server.core.common.base.ResponseObject;
+import bytetech.movierecmommendations.server.core.user.account.model.request.UpdateAccountRequest;
 import bytetech.movierecmommendations.server.core.user.account.model.request.UserFindAccountRequest;
 import bytetech.movierecmommendations.server.core.user.account.model.request.UserAccountRequest;
 import jakarta.validation.Valid;
@@ -13,7 +14,7 @@ public interface UserAccountService {
 
     ResponseObject<?> createUser(@Valid UserAccountRequest request);
 
-    ResponseObject<?> updateUser(String id, @Valid UserAccountRequest request);
+    ResponseObject<?> updateUser(String id, @Valid UpdateAccountRequest request);
 
     ResponseObject<?> changeStatusUser(String id);
 

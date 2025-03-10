@@ -2,6 +2,7 @@ package bytetech.movierecmommendations.server.core.user.account.service.impl;
 
 import bytetech.movierecmommendations.server.core.common.base.PageableObject;
 import bytetech.movierecmommendations.server.core.common.base.ResponseObject;
+import bytetech.movierecmommendations.server.core.user.account.model.request.UpdateAccountRequest;
 import bytetech.movierecmommendations.server.core.user.account.model.request.UserFindAccountRequest;
 import bytetech.movierecmommendations.server.core.user.account.model.request.UserAccountRequest;
 import bytetech.movierecmommendations.server.core.user.account.repository.UserAccountRepository;
@@ -66,7 +67,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public ResponseObject<?> updateUser(String id, UserAccountRequest request) {
+    public ResponseObject<?> updateUser(String id, UpdateAccountRequest request) {
         try {
             Optional<User> userOptional = userRepository.findById(id);
             if (userOptional.isEmpty()) {
@@ -76,19 +77,8 @@ public class UserAccountServiceImpl implements UserAccountService {
                 );
             }
             User newUser = userOptional.get();
-            if (!newUser.getEmail().equals(request.getEmail()) &&
-                    userRepository.existsByEmail(request.getEmail())) {
-                return ResponseObject.errorForward(
-                        HttpStatus.BAD_REQUEST,
-                        Message.Response.DUPLICATE + ", email"
-                );
-            }
-            newUser.setFullName(request.getUserName());
-            newUser.setEmail(request.getEmail());
-            newUser.setPassword(request.getPassword());
+            newUser.setFullName(request.getName());
             newUser.setProfilePicture(request.getProfilePicture());
-            RoleConstant role = request.getRole() == 0 ? RoleConstant.ADMIN : RoleConstant.USER;
-            newUser.setRoleConstant(role);
             userRepository.save(newUser);
             return ResponseObject.successForward(
                     HttpStatus.CREATED,
