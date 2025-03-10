@@ -1,5 +1,6 @@
 package bytetech.movierecmommendations.server.core.user.account.controller;
 
+import bytetech.movierecmommendations.server.core.user.account.model.request.UpdateAccountRequest;
 import bytetech.movierecmommendations.server.core.user.account.model.request.UserAccountRequest;
 import bytetech.movierecmommendations.server.core.user.account.service.UserAccountService;
 import bytetech.movierecmommendations.server.infrastructure.constants.module.MappingConstant;
@@ -34,7 +35,7 @@ public class UserAccountController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable String id, @Valid @RequestBody final UserAccountRequest request) {
+    public ResponseEntity<?> updateUser(@PathVariable String id, @Valid @RequestBody final UpdateAccountRequest request) {
         return Helper.createResponseEntity(userService.updateUser(id, request));
     }
 
