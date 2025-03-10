@@ -69,7 +69,7 @@ MYSQL_DATABASE=movie_recommendations
 MYSQL_USER=root
 MYSQL_PASSWORD=123456 [** / (需要更改) \ **]
 JPA_SHOW_SQL=true
-JPA_DDL_AUTO=none
+JPA_DDL_AUTO=create
 GENERATE_DB=true
 
 # 服务器信息
@@ -111,7 +111,7 @@ pip install -r requirements.txt
 3. 运行推荐系统：
 
 ```sh
-python app.py
+python main.py
 ```
 
 ### 前端
@@ -139,7 +139,7 @@ npm install
 4. 启动前端：
 
 ```sh
-npm start
+npm run dev
 ```
 
 ## 联系方式

@@ -48,13 +48,14 @@ The system assists administrators in managing movie data, users, and related inf
 
 ## Installation and Usage
 
-### Backend Project
-
 Clone the repository:
 
 ```sh
  git clone https://github.com/nghiabeoniamey/movie-recommendations
 ```
+
+### Backend Project
+
 #### Server: Java + Springboot
 
 1. Open the backend with IntelliJ IDEA and wait for the IDE to load the Gradle project.
@@ -68,7 +69,7 @@ MYSQL_DATABASE=movie_recommendations
 MYSQL_USER=root
 MYSQL_PASSWORD=123456 [** / (need change) \ **]
 JPA_SHOW_SQL=true
-JPA_DDL_AUTO=none
+JPA_DDL_AUTO=create
 GENERATE_DB=true
 
 #SERVER INFORMATION
@@ -113,13 +114,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-### Frontend Project
-
-Clone the repository:
-
-```sh
- git clone https://github.com/hieuhoang26/Movie_FE.git
-```
+### Frontend Project: Client
 
 1. Open the frontend with Visual Studio Code.
 2. Configure environment variables:
@@ -138,7 +133,7 @@ npm install
 4. Start the frontend:
 
 ```sh
-npm start
+npm run dev
 ```
 
 ## Contact
