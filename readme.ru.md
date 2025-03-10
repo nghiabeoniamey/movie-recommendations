@@ -69,7 +69,7 @@ MYSQL_DATABASE=movie_recommendations
 MYSQL_USER=root
 MYSQL_PASSWORD=123456 [** / (необходимо изменить) \ **]
 JPA_SHOW_SQL=true
-JPA_DDL_AUTO=none
+JPA_DDL_AUTO=create
 GENERATE_DB=true
 
 # Информация о сервере
@@ -111,7 +111,7 @@ pip install -r requirements.txt
 3. Запустить систему рекомендаций:
 
 ```sh
-python app.py
+python main.py
 ```
 
 ### Frontend
@@ -139,7 +139,7 @@ npm install
 4. Запустить frontend:
 
 ```sh
-npm start
+npm run dev
 ```
 
 ## Контакты
