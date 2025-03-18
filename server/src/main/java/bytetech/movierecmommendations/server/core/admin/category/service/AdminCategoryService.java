@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AdminCategoryService {
 
-    ResponseObject<Page<Category>> getAll(CategoryFilterRequest filterRequest, int page, int size);
+    ResponseObject<Page<Category>> getAll(CategoryFilterRequest filterRequest);
 
     ResponseObject<Category> create(Category category);
 

@@ -28,7 +28,7 @@ public class DBGenerator {
         service.generateUser();
         service.generateCategory();
         service.generateMovie();
-        service.generateReview();
+//        service.generateReview();
         service.generateMovieCategory();
     }
 

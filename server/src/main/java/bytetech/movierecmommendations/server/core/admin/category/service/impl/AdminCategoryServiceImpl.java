@@ -5,7 +5,6 @@ import bytetech.movierecmommendations.server.core.admin.category.repository.Admi
 import bytetech.movierecmommendations.server.core.admin.category.service.AdminCategoryService;
 import bytetech.movierecmommendations.server.core.common.base.ResponseObject;
 import bytetech.movierecmommendations.server.entities.main.Category;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -23,9 +22,9 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     }
 
     @Override
-    public ResponseObject<Page<Category>> getAll(CategoryFilterRequest filterRequest, int page, int size) {
-        PageRequest pageable = PageRequest.of(page, size);
-        Page<Category> categories = adminCategoryRepository.findAllByFilter(filterRequest, pageable);
+    public ResponseObject<Page<Category>> getAll(CategoryFilterRequest request) {
+        PageRequest pageable = PageRequest.of(request.getPage(), request.getSize());
+        Page<Category> categories = adminCategoryRepository.findAllByFilter(request, pageable);
         return new ResponseObject<>(categories, HttpStatus.OK, "Lấy danh sách danh mục thành công");
     }
 

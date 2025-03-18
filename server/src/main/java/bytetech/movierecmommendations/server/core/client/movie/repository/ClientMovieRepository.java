@@ -18,6 +18,7 @@ public interface ClientMovieRepository extends MovieRepository {
             "JOIN MovieCategory mc ON mc.movie = m " +
             "JOIN mc.category c " +
             "WHERE " +
+            "m.deleted = false AND " +
             "LOWER(m.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(m.author) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(m.actor) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
@@ -50,7 +51,7 @@ public interface ClientMovieRepository extends MovieRepository {
     Page<Movie> findAllByFilter(@Param("movieId") String movieId, Pageable pageable);
 
     @Query(value = """
-            SELECT
+            SELECT DISTINCT
                 c.id AS id,
                 c.name AS name,
                 c.description AS description
@@ -59,8 +60,9 @@ public interface ClientMovieRepository extends MovieRepository {
             WHERE c.deleted = false
             """, nativeQuery = true)
     List<AdminMovieCategoryResponse> findCategoryByMoviesId(String movieId);
+
     @Query(value = """
-            SELECT 
+            SELECT
                 m.id AS id,
                 m.title AS title,
                 m.description AS description,

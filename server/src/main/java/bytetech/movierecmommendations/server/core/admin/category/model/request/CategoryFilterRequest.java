@@ -18,4 +18,8 @@ public class CategoryFilterRequest {
 
     private Long movieId;
 
+    private int page;
+
+    private int size;
+
 }

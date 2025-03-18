@@ -1,7 +1,7 @@
-import { createBrowserRouter } from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import Layout from "./Layout";
 import HomePage from "../page/HomePage";
-import MovieDetail from "../page/MovieDetail";
+import MoviesDetail from "../page/MovieDetail";
 import SearchPage from "../page/SearchPage";
 import AdminLayout from "../dashboard/AdminLayout";
 import Dashboard from "../dashboard/page/Dash";
@@ -13,135 +13,99 @@ import UserManager from "../dashboard/page/UserManager";
 import CategoryManager from "../dashboard/page/CategoryManager";
 import Profile from "../page/Profile";
 import MovieManager from "../dashboard/page/MovieManager";
-import AllMovie from "../page/AllMovie";
-import ProtectedRoute from "./ProtectedRoute";
+import Movies from "../page/AllMovie";
 import ReviewManager from "../dashboard/page/ReviewManager";
 import MovieDetailDemo from "../page/MovieDetailDemo";
 import SearchResults from "../page/SearchResults";
-import { TestReview } from "../components/TestReview";
+import Redirect from "./Redirect/Redirect.tsx";
+import {ROUTES_CONSTANTS} from "../utils/constants/path.ts";
+import ProtectedRoute from "./ProtectedRoute.tsx";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
+    {
         path: "/",
-        // element: <ProtectedRoute element={<Home />}></ProtectedRoute>,
-        element: <HomePage />,
-      },
-      {
-        path: "/all",
-        element: <AllMovie />,
-      },
-      {
-        path: "/movie/:id",
-        element: <MovieDetail />,
-      },
-      {
-        path: "/detail/:id",
-        element: <MovieDetailDemo />,
-      },
-      {
-        path: "/search",
-        element: <SearchResults />,
-      },
-      {
-        path: "/find",
-        element: <SearchPage />,
-      },
-      {
-        path: "/profile",
-        element: <ProtectedRoute />,
+        element: <Layout/>,
         children: [
-          {
-            index: true,
-            element: <Profile />,
-          },
+            {
+                path: ROUTES_CONSTANTS.CLIENT.path,
+                element: <HomePage/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.REDIRECT.path,
+                element: <Redirect/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.CLIENT.children.MOVIES.path,
+                element: <Movies/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.CLIENT.children.MOVIES_DETAIL.path,
+                element: <MoviesDetail/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.CLIENT.children.MOVIES_DETAIL_DEMO.path,
+                element: <MovieDetailDemo/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.CLIENT.children.SEARCH_RESULT.path,
+                element: <SearchResults/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.CLIENT.children.SEARCH_PAGE.path,
+                element: <SearchPage/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.CLIENT.children.PROFILE.path,
+                element: <ProtectedRoute/>,
+                children: [
+                    {
+                        index: true,
+                        element: <Profile/>,
+                    },
+                ],
+            },
         ],
-      },
-    ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/auth/redirect/verify",
-    element: <VerifyRedirect />,
-  },
-  {
-    path: "/signup",
-    element: <SignUp />,
-  },
-  {
-    path: "/admin",
-    element: <AdminLayout />, // Layout riêng cho admin
-    children: [
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "movies",
-        element: <MovieManager />,
-      },
-      {
-        path: "category",
-        element: <CategoryManager />,
-      },
-      {
-        path: "users",
-        element: <UserManager />,
-      },
-      {
-        path: "reviews",
-        element: <ReviewManager />,
-      },
-      {
-        index: true,
-        element: <Dashboard />,
-      },
-    ],
-  },
-  // {
-  //   path: "/admin",
-  //   element: <ProtectedRoute />,
-  //   children: [
-  //     {
-  //       path: "/admin",
-  //       element: <AdminLayout />,
-  //       children: [
-  //         {
-  //           index: true,
-  //           element: <Dashboard />,
-  //         },
-  //         {
-  //           path: "dashboard",
-  //           element: <Dashboard />,
-  //         },
-  //         {
-  //           path: "settings",
-  //           element: <Settings />,
-  //         },
-  //         {
-  //           path: "tables",
-  //           element: <Tables />,
-  //         },
-  //         {
-  //           path: "movies",
-  //           element: <MovieManager />,
-  //         },
-  //         {
-  //           path: "category",
-  //           element: <CategoryManager />,
-  //         },
-  //         {
-  //           path: "users",
-  //           element: <UserManager />,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+    },
+    {
+        path: ROUTES_CONSTANTS.AUTHENTICATION.children.LOGIN.path,
+        element: <Login/>,
+    },
+    {
+        path: "/auth/redirect/verify",
+        element: <VerifyRedirect/>,
+    },
+    {
+        path: ROUTES_CONSTANTS.AUTHENTICATION.children.REGISTER.path,
+        element: <SignUp/>,
+    },
+    {
+        path: ROUTES_CONSTANTS.ADMIN.path,
+        element: <AdminLayout/>, // Layout riêng cho admin
+        children: [
+            {
+                path: ROUTES_CONSTANTS.ADMIN.children.DASHBOARD.path,
+                element: <Dashboard/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.ADMIN.children.MOVIES.path,
+                element: <MovieManager/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.ADMIN.children.CATEGORY.path,
+                element: <CategoryManager/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.ADMIN.children.USERS.path,
+                element: <UserManager/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.ADMIN.children.REVIEWS.path,
+                element: <ReviewManager/>,
+            },
+            {
+                index: true,
+                element: <Dashboard/>,
+            },
+        ],
+    },
 ]);

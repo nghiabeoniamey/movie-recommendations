@@ -32,8 +32,10 @@ public interface AdminMovieMRepository extends MovieRepository {
                 movie m
             LEFT JOIN movie_category mc on m.id = mc.movie_id
             LEFT JOIN category c on c.id = mc.category_id
-            LEFT JOIN reviewer r on r.movie_id = m.id
+            LEFT JOIN reviewer r on r.movie_id = m.id AND r.deleted = false
             WHERE
+                m.deleted = false
+            AND
                 (:#{#req.keyword} IS NULL OR
                 m.title LIKE CONCAT('%', :#{#req.keyword}, '%') OR
                 m.description LIKE CONCAT('%', :#{#req.keyword}, '%')) OR
@@ -56,8 +58,10 @@ public interface AdminMovieMRepository extends MovieRepository {
                 COUNT(m.id) FROM movie m
             LEFT JOIN movie_category mc on m.id = mc.movie_id
             LEFT JOIN category c on c.id = mc.category_id
-            LEFT JOIN reviewer r on r.movie_id = m.id
+            LEFT JOIN reviewer r on r.movie_id = m.id AND r.deleted = false
             WHERE
+                m.deleted = false
+            AND
                 (:#{#req.keyword} IS NULL OR
                 m.title LIKE CONCAT('%', :#{#req.keyword}, '%') OR
                 m.description LIKE CONCAT('%', :#{#req.keyword}, '%')) OR
@@ -92,7 +96,7 @@ public interface AdminMovieMRepository extends MovieRepository {
                 m.last_modified_date AS lastModifiedDate,
                 ROUND(AVG(r.rating * 2), 1) AS rating
             FROM movie m
-            LEFT JOIN reviewer r on r.movie_id = m.id
+            JOIN reviewer r on r.movie_id = m.id AND r.deleted = false
             WHERE m.id = :id
             GROUP BY m.id,
                      m.title,
@@ -108,7 +112,7 @@ public interface AdminMovieMRepository extends MovieRepository {
     AdminModifyMovieResponse findMovieById(String id);
 
     @Query(value = """
-            SELECT
+            SELECT DISTINCT
                 c.id AS id,
                 c.name AS name,
                 c.description AS description
@@ -119,7 +123,7 @@ public interface AdminMovieMRepository extends MovieRepository {
     List<AdminMovieCategoryResponse> findCategoryByMoviesId(String movieId);
 
     @Query(value = """
-            SELECT
+            SELECT DISTINCT
                 c.id AS id,
                 c.name AS name,
                 c.description AS description,

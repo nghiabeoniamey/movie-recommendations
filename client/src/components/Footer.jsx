@@ -78,11 +78,8 @@ const Footer = () => {
         </div>
 
         {/* Language Selector */}
-        <div className="mt-6">
-          <button className="flex items-center space-x-2 px-4 py-2 border border-gray-500 rounded text-gray-300">
-            <Globe size={20} />
-            <span>English</span>
-          </button>
+        <div className="p-6">
+
         </div>
       </div>
     </div>

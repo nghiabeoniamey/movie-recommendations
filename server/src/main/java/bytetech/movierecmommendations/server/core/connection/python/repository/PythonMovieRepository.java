@@ -27,7 +27,8 @@ public interface PythonMovieRepository extends MovieRepository {
                 movie m
             LEFT JOIN movie_category mc on m.id = mc.movie_id
             LEFT JOIN category c on c.id = mc.category_id
-            LEFT JOIN reviewer r on r.movie_id = m.id
+            LEFT JOIN reviewer r on r.movie_id = m.id AND r.deleted = false
+            WHERE m.id IN (:movieIds)
             GROUP BY m.id,
                      m.title,
                      m.description,

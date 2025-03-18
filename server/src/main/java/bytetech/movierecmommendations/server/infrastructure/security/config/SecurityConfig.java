@@ -115,6 +115,7 @@ public class SecurityConfig {
                                 Helper.appendWildcard(MappingConstant.API_AUTH_PREFIX),
                                 Helper.appendWildcard(MappingConstant.PATH_OAUTH2),
                                 Helper.appendWildcard(MappingConstant.API_EMBED_PREFIX),
+                                Helper.appendWildcard(MappingConstant.API_VERSION_PREFIX),
                                 Helper.appendWildcard(MappingConstant.API_CONNECTION_RECOMMENDATION),
                                 Helper.appendWildcard(MappingConstant.API_SWAGGER),
                                 Helper.appendWildcard(MappingConstant.API_CONNECTION_PYTHON),
