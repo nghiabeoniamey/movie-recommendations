@@ -33,12 +33,11 @@
 ### 后端
 
 - JDK >= 21（推荐）
-- Python 3.12.9（推荐）
+- Python >= 3.10（推荐 3.12.9)
 - IntelliJ IDEA >= 2020.3（推荐 MAX-VERSION）
 - MySQL（推荐 MAX-VERSION）
-- Python >= 3.10（推荐）
 - Flask/FastAPI（用于推荐系统）
-- Python 库：Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch（如果使用机器学习）
+- Python 库：Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch
 
 ### 前端
 

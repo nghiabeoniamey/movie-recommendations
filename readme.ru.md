@@ -33,12 +33,11 @@
 ### Backend
 
 - JDK >= 21 (рекомендуется)
-- Python 3.12.9 (рекомендуется)
+- Python >= 3.10 (рекомендуется 3.12.9)
 - IntelliJ IDEA >= 2020.3 (рекомендуется MAX-VERSION)
 - MySQL (рекомендуется MAX-VERSION)
-- Python >= 3.10 (рекомендуется)
 - Flask/FastAPI (для системы рекомендаций)
-- Библиотеки Python: Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch (если используется машинное обучение)
+- Библиотеки Python: Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch
 
 ### Frontend
 

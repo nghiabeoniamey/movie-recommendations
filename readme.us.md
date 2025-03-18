@@ -33,12 +33,11 @@ The system assists administrators in managing movie data, users, and related inf
 ### Backend Project
 
 - JDK >= 21 (recommended)
-- Python 3.12.9 (recommended)
+- Python >= 3.10 (recommended  3.12.9)
 - IntelliJ IDEA >= 2020.3 (MAX-VERSION recommended)
 - MySQL (MAX-VERSION recommended)
-- Python >= 3.10 (recommended)
 - Flask/FastAPI (for the Recommendation System)
-- Python libraries: Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch (if using Machine Learning)
+- Python libraries: Pandas, NumPy, Scikit-learn, TensorFlow/PyTorch
 
 ### Frontend Project
 
