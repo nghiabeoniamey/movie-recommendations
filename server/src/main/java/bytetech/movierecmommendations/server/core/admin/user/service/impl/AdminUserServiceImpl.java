@@ -51,7 +51,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             );
         }
         User newUser = new User();
-        newUser.setFullName(request.getUserName());
+        newUser.setFullName(request.getName());
         newUser.setEmail(request.getEmail());
         newUser.setPassword(request.getPassword());
         newUser.setProfilePicture(request.getProfilePicture());
@@ -82,7 +82,7 @@ public class AdminUserServiceImpl implements AdminUserService {
                     Message.Response.DUPLICATE + ", email"
             );
         }
-        newUser.setFullName(request.getUserName());
+        newUser.setFullName(request.getName());
         newUser.setEmail(request.getEmail());
         newUser.setPassword(request.getPassword());
         newUser.setProfilePicture(request.getProfilePicture());
@@ -111,6 +111,23 @@ public class AdminUserServiceImpl implements AdminUserService {
             return ResponseObject.successForward(
                     HttpStatus.CREATED,
                     Message.Success.UPDATE_SUCCESS
+            );
+        } catch (Exception e) {
+            return ResponseObject.errorForward(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    e.getMessage()
+            );
+        }
+    }
+
+    @Override
+    public ResponseObject<?> getIsActive(String id) {
+        try {
+            Optional<User> userOptional = userRepository.findById(id);
+            return new ResponseObject<>(
+                    userOptional.filter(user -> !user.getDeleted()).isPresent(),
+                    HttpStatus.OK,
+                    Message.Success.GET_SUCCESS
             );
         } catch (Exception e) {
             return ResponseObject.errorForward(

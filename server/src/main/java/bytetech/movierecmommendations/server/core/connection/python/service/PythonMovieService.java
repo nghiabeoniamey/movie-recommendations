@@ -6,4 +6,8 @@ public interface PythonMovieService {
 
     ResponseObject<?> getMoviesRecommendation();
 
+    ResponseObject<?> getMoviesReviewer();
+
+    ResponseObject<?> getMoviesHistory();
+
 }

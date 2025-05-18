@@ -17,4 +17,6 @@ public interface AdminUserService {
 
     ResponseObject<?> changeStatusUser(String id);
 
+    ResponseObject<?> getIsActive(String id);
+
 }

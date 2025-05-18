@@ -41,7 +41,7 @@ const MovieList = ({ title, data }) => {
               })`,
             }}
             // onClick={() => handleVideoTrailer(movie.id)}
-            onClick={() => navigate(`/movie/${movie.id}`)}
+            onClick={() => navigate(`/movies/${movie.id}`)}
           >
             <div className="absolute top-2 left-2 w-10 h-10 bg-red-600 text-white font-bold flex items-center justify-center rounded-full shadow-lg">
               {movie.vote_average?.toFixed(1)}

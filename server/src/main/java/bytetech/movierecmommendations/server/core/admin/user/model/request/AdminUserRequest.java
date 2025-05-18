@@ -3,7 +3,6 @@ package bytetech.movierecmommendations.server.core.admin.user.model.request;
 import bytetech.movierecmommendations.server.infrastructure.constants.module.Message;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -17,23 +16,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AdminUserRequest {
 
-    @NotBlank(message = Message.Validate.NOT_BLANK)
-    @Size(min = 8, max = 50, message = Message.Validate.SIZE50)
-    private String userName;
+    private String name;
 
-    @NotBlank(message = Message.Validate.NOT_BLANK)
-    @Email(message = Message.Validate.IS_EMAIL)
     private String email;
 
-    @NotBlank(message = Message.Validate.NOT_BLANK)
-    @Size(min = 8, max = 50, message = Message.Validate.SIZE50)
     private String password;
 
-    @NotBlank(message = Message.Validate.NOT_BLANK)
-    @Size(min = 8, max = 100, message = Message.Validate.SIZE100)
     private String profilePicture;
 
-    @NotNull(message = "Role không được để trống")
     private Integer role;
 
 }

@@ -29,7 +29,6 @@ const Login = () => {
     const onSubmit = async (data) => {
         try {
             const res = await AuthApi.login(data);
-            const token = res.data;
             if (res.status === "OK") {
                 toast.success("Chuyển hướng đăng nhập");
                 if (res?.data) {
@@ -191,15 +190,22 @@ const Login = () => {
                                     Log in
                                 </button>
                                 <span className="flex items-center justify-center w-full m-2 ">
-                  or
-                </span>
+                                  or
+                                </span>
                                 <button
-                                    className="flex items-center justify-center w-full border border-gray-300 rounded-lg py-2 px-4 text-gray-700 hover:bg-gray-100">
+                                    className="flex items-center justify-center w-full border border-gray-300 rounded-lg py-2 px-4 text-gray-700 hover:bg-gray-100"
+                                >
                                     <FcGoogle className="w-6 h-6 mr-2"/>
                                     <span>Login with Google</span>
                                 </button>
                             </div>
                         </form>
+                        <a
+                            href={'/signup'}
+                            className="block text-sm text-gray-800 mt-2 cursor-pointer"
+                        >
+                            Register now
+                        </a>
                     </div>
                     <div className="lg:h-[400px] md:h-[300px] max-md:mt-8">
                         <img

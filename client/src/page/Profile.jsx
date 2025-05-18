@@ -1,68 +1,75 @@
-import React from "react";
-
-// import Navbar from "components/Navbars/AuthNavbar.js";
+import React, {useEffect, useState} from "react";
 import teamImage from "../assets/img/team-1-800x800.jpg";
-import {useAuthStore} from "../utils/stores/auth.ts";
-
-// import { adminUserApi } from "../api/UserAcc";
+import {useAuthStore} from "../utils/stores/auth";
+import {AdminUserApi} from "../api/AdminUser";
+import {toast} from "react-toastify";
 
 export default function Profile() {
-
     const authStore = useAuthStore();
+    const {id: userId} = authStore.user;
+    const [user, setUser] = useState(null);
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        role: '0',
+        deleted: false,
+        profilePicture: "",
+    });
 
-    const {userId} = authStore.user.id;
+    useEffect(() => {
+        if (userId) {
+            AdminUserApi.GetUserById(userId)
+                .then((res) => {
+                    setUser(res.data);
+                    setFormData({
+                        name: res.data.name || "",
+                        email: res.data.email || "",
+                        password: res.data.password || "",
+                        role: res.data.role || '0',
+                        deleted: res.data.deleted || false,
+                        profilePicture: res.data.profilePicture || "",
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error fetching profile:", error);
+                });
+        }
+    }, [userId]);
 
-    // const [user, setUser] = useState(null);
+    const handleChange = (e) => {
+        const {name, value, type, checked} = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
+    };
 
-    // useEffect(() => {
-    //   if (userId) {
-    //     adminUserApi
-    //       .getById(userId)
-    //       .then((res) => {
-    //         console.log(res);
-    //         // setUser(res.data);
-    //       })
-    //       .catch((error) => {
-    //         console.error("Error fetching profile:", error);
-    //       });
-    //   }
-    // }, [userId]);
+    const handleSubmit = () => {
+        AdminUserApi.UpdateUser(userId, formData)
+            .then(() => {
+                toast.success("Successfully updated profile");
+            })
+            .catch((err) => {
+                console.error("Update failed:", err);
+                toast.error("Update failed");
+            });
+    };
 
     return (
         <>
-            {/* <Navbar transparent /> */}
             <main className="profile-page">
                 <section className="relative block h-[500px]">
                     <div
                         className="absolute top-0 w-full h-full bg-center bg-cover"
                         style={{
-                            backgroundImage:
-                                "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
+                            backgroundImage: `url(${formData.profilePicture || teamImage})`,
                         }}
                     >
             <span
                 id="blackOverlay"
                 className="w-full h-full absolute opacity-50 bg-black"
             ></span>
-                    </div>
-                    <div
-                        className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-                        style={{transform: "translateZ(0)"}}
-                    >
-                        <svg
-                            className="absolute bottom-0 overflow-hidden"
-                            xmlns="http://www.w3.org/2000/svg"
-                            preserveAspectRatio="none"
-                            version="1.1"
-                            viewBox="0 0 2560 100"
-                            x="0"
-                            y="0"
-                        >
-                            <polygon
-                                className="text-blueGray-200 fill-current"
-                                points="2560 0 2560 100 0 100"
-                            ></polygon>
-                        </svg>
                     </div>
                 </section>
                 <section className="relative py-16 bg-blueGray-200">
@@ -74,64 +81,108 @@ export default function Profile() {
                                     <div className="w-full lg:w-3/12 px-4 flex justify-center">
                                         <img
                                             alt="..."
-                                            src={teamImage}
+                                            src={formData.profilePicture || teamImage}
                                             className="shadow-xl rounded-full h-auto align-middle border-none"
                                         />
-                                    </div>
-                                    <div className="absolute top-0 right-0">
-                                        <button
-                                            className="bg-blue-500 active:bg-blue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                                            type="button"
-                                        >
-                                            Edit
-                                        </button>
                                     </div>
                                 </div>
 
                                 <div className="text-center mt-12">
                                     <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                                        Jenna Stones
+                                        Profile Settings
                                     </h3>
-                                    <div
-                                        className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                                        <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-                                        Los Angeles, California
-                                    </div>
-                                    <div className="mb-2 text-blueGray-600 mt-10">
-                                        <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                                        Solution Manager - Creative Tim Officer
-                                    </div>
-                                    <div className="mb-2 text-blueGray-600">
-                                        <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                                        University of Computer Science
-                                    </div>
                                 </div>
-                                <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
-                                    <div className="flex flex-wrap justify-center">
-                                        <div className="w-full lg:w-9/12 px-4">
-                                            <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                                                An artist of considerable range, Jenna the name taken by
-                                                Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                                                performs and records all of his own music, giving it a
-                                                warm, intimate feel with a solid groove structure. An
-                                                artist of considerable range.
-                                            </p>
-                                            <a
-                                                href="#pablo"
-                                                className="font-normal text-lightBlue-500"
-                                                onClick={(e) => e.preventDefault()}
-                                            >
-                                                Show more
-                                            </a>
-                                        </div>
+
+                                <div className="px-4 py-6">
+                                    <div className="mb-4">
+                                        <label className="block font-semibold">Name:</label>
+                                        <input
+                                            name="name"
+                                            type="text"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            className="border p-2 w-full rounded"
+                                        />
                                     </div>
+
+                                    <div className="mb-4">
+                                        <label className="block font-semibold">Email:</label>
+                                        <input
+                                            name="email"
+                                            type="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            className="border p-2 w-full rounded"
+                                        />
+                                    </div>
+
+                                    <div className="mb-4">
+                                        <label className="block font-semibold">Password:</label>
+                                        <input
+                                            name="password"
+                                            type="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            className="border p-2 w-full rounded"
+                                        />
+                                    </div>
+
+                                    <div className="mb-4">
+                                        <label className="block font-semibold">Role:</label>
+                                        <select
+                                            name="role"
+                                            value={formData.role}
+                                            onChange={handleChange}
+                                            className="border p-2 w-full rounded"
+                                        >
+                                            <option value={'0'} disabled={true}>Admin</option>
+                                            <option value={'1'}>User</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="mb-4">
+                                        <label className="block font-semibold">Status:</label>
+                                        <select
+                                            name="deleted"
+                                            value={formData.deleted ? "true" : "false"}
+                                            onChange={(e) =>
+                                                handleChange({
+                                                    target: {
+                                                        name: "deleted",
+                                                        value: e.target.value === "true",
+                                                    },
+                                                })
+                                            }
+                                            className="border p-2 w-full rounded"
+                                        >
+                                            <option value="true">Active</option>
+                                            <option value="false">Inactive</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="mb-4">
+                                        <label className="block font-semibold">Profile Picture URL:</label>
+                                        <input
+                                            name="profilePicture"
+                                            type="text"
+                                            value={formData.profilePicture}
+                                            onChange={handleChange}
+                                            className="border p-2 w-full rounded"
+                                        />
+                                    </div>
+
+                                    <button
+                                        onClick={handleSubmit}
+                                        className="bg-blue-500 text-white font-bold py-2 px-6 rounded hover:bg-blue-600"
+                                    >
+                                        Save Changes
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
             </main>
-            {/* <Footer /> */}
         </>
     );
 }

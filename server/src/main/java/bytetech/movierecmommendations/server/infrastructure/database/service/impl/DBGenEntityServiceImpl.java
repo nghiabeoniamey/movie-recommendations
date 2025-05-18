@@ -36,7 +36,7 @@ public class DBGenEntityServiceImpl implements DBGenEntityService {
     public void generateUser() {
         if (userRepository.count() == 0) {
             List<User> users = List.of(
-                    new User("Nguyễn Văn A", "0849070511", "vana@gmail.com", "12345678", "Hà Nội", null, RoleConstant.USER),
+                    new User("Minh Lương", "0849070511", "minhluong@gmail.com", "12345678", "Hà Nội", "https://avatars.githubusercontent.com/u/171242028?v=4", RoleConstant.ADMIN),
                     new User("Trần Văn B", "0849070512", "vanb@gmail.com", "12345678", "TP.HCM", null, RoleConstant.USER),
                     new User("Lê Thị C", "0849070513", "letc@gmail.com", "12345678", "Đà Nẵng", null, RoleConstant.USER),
                     new User("Phạm Văn D", "0849070514", "pvd@gmail.com", "12345678", "Hải Phòng", null, RoleConstant.USER),
@@ -299,7 +299,7 @@ public class DBGenEntityServiceImpl implements DBGenEntityService {
                 int additionalCategories = random.nextInt(2);
                 for (int i = 0; i < additionalCategories; i++) {
                     Category additionalCategory = categories.get(random.nextInt(categories.size()));
-                    if (!movieCategories.stream().anyMatch(mc -> mc.getMovie().equals(movie) && mc.getCategory().equals(additionalCategory))) {
+                    if (movieCategories.stream().noneMatch(mc -> mc.getMovie().equals(movie) && mc.getCategory().equals(additionalCategory))) {
                         movieCategories.add(new MovieCategory(movie, additionalCategory));
                     }
                 }

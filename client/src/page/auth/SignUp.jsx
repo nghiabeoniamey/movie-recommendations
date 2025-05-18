@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
 import {FcGoogle} from "react-icons/fc";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
 import AuthApi from "../../api/auth.ts";
 import {toast} from "react-toastify";
+import {URL_FRONTEND} from "../../utils/constants/url";
 
 const schema = yup.object().shape({
     fullName: yup
@@ -20,7 +20,6 @@ const schema = yup.object().shape({
 });
 
 const SignUp = () => {
-    const navigate = useNavigate();
 
     const {
         register,
@@ -31,17 +30,21 @@ const SignUp = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log("Data", data);
         try {
             const res = await AuthApi.registerAccount(data);
-            console.log(res);
-            if (res.status === 200) {
-                toast.success(res.data.message);
-            } else if (res.status === 400) {
-                toast.error(res.data.message);
+            if (res.status === "OK") {
+                toast.success("Chuyển hướng đăng nhập");
+                const res2 = await AuthApi.login(data);
+                if (res2?.data) {
+                    window.location.href = `${URL_FRONTEND}?state=${res2.data}`;
+                }
+                if (res2?.data?.message) {
+                    toast.warning(res2?.data?.message);
+                }
+            } else {
+                toast.error(res.message);
             }
         } catch (error) {
-            console.log("err", error);
             toast.error(error.response.data.message);
         }
     };
@@ -196,8 +199,8 @@ const SignUp = () => {
                                     Sign Up
                                 </button>
                                 <span className="flex items-center justify-center w-full m-2 ">
-                  or
-                </span>
+                                  or
+                                </span>
                                 <button
                                     className="flex items-center justify-center w-full border border-gray-300 rounded-lg py-2 px-4 text-gray-700 hover:bg-gray-100">
                                     <FcGoogle className="w-6 h-6 mr-2"/>
@@ -205,6 +208,12 @@ const SignUp = () => {
                                 </button>
                             </div>
                         </form>
+                        <a
+                            href={'/login'}
+                            className="block text-sm text-gray-800 mt-2 cursor-pointer"
+                        >
+                            Login now
+                        </a>
                     </div>
                     <div className="lg:h-[400px] md:h-[300px] max-md:mt-8">
                         <img

@@ -5,6 +5,7 @@ import bytetech.movierecmommendations.server.core.connection.python.repository.P
 import bytetech.movierecmommendations.server.core.connection.python.service.PythonMovieService;
 import bytetech.movierecmommendations.server.core.connection.python.service.PythonWebClientService;
 import bytetech.movierecmommendations.server.infrastructure.constants.module.Message;
+import bytetech.movierecmommendations.server.util.AuditorProviderByAuthenticationUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,38 @@ public class PythonMovieServiceImpl implements PythonMovieService {
         }
         return new ResponseObject<>(
                 Collections.EMPTY_LIST,
+                HttpStatus.OK,
+                Message.Success.GET_SUCCESS
+        );
+    }
+
+    @Override
+    public ResponseObject<?> getMoviesReviewer() {
+        String userId = AuditorProviderByAuthenticationUtil.getUserId();
+        if (userId.equalsIgnoreCase(AuditorProviderByAuthenticationUtil.SYSTEM)) {
+            return ResponseObject.errorForward(
+                    HttpStatus.BAD_REQUEST,
+                    Message.Response.NOT_FOUND + " người dùng"
+            );
+        }
+        return new ResponseObject<>(
+                movieRepository.getMoviesReviewByUserId(userId),
+                HttpStatus.OK,
+                Message.Success.GET_SUCCESS
+        );
+    }
+
+    @Override
+    public ResponseObject<?> getMoviesHistory() {
+        String userId = AuditorProviderByAuthenticationUtil.getUserId();
+        if (userId.equalsIgnoreCase(AuditorProviderByAuthenticationUtil.SYSTEM)) {
+            return ResponseObject.errorForward(
+                    HttpStatus.BAD_REQUEST,
+                    Message.Response.NOT_FOUND + " người dùng"
+            );
+        }
+        return new ResponseObject<>(
+                movieRepository.getMoviesHistoryByUserId(userId),
                 HttpStatus.OK,
                 Message.Success.GET_SUCCESS
         );

@@ -84,7 +84,14 @@ export const ROUTES_CONSTANTS = {
                 path: "profile",
                 name: "client-profile",
             },
-
+            REVIEWS: {
+                path: "reviews",
+                name: "client-reviews",
+            },
+            WATCH_HISTORY: {
+                path: "watch-history",
+                name: "client-watch-history",
+            }
         },
     },
 };

@@ -50,6 +50,13 @@ export const AdminUserApi = {
         >;
     },
 
+    CheckActive: async (id: any) => {
+        return await request({
+            url: `${PREFIX_API_USER_ADMIN}/active/${id}`,
+            method: "GET"
+        }) as AxiosResponse<DefaultResponse<Object>>;
+    },
+
     DeleteUser: async (id: any) => {
         return await request({
             url: `${PREFIX_API_USER_ADMIN}/${id}`,

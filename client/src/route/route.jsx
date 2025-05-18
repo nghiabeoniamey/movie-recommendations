@@ -5,7 +5,6 @@ import MoviesDetail from "../page/MovieDetail";
 import SearchPage from "../page/SearchPage";
 import AdminLayout from "../dashboard/AdminLayout";
 import Dashboard from "../dashboard/page/Dash";
-
 import VerifyRedirect from "../page/auth/VerifyRedirect";
 import Login from "../page/auth/Login";
 import SignUp from "../page/auth/SignUp";
@@ -20,6 +19,8 @@ import SearchResults from "../page/SearchResults";
 import Redirect from "./Redirect/Redirect.tsx";
 import {ROUTES_CONSTANTS} from "../utils/constants/path.ts";
 import ProtectedRoute from "./ProtectedRoute.tsx";
+import ReviewsPage from "../page/ReviewsPage.jsx";
+import WatchHistoryPage from "../page/WatchHistoryPage.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -53,6 +54,14 @@ export const router = createBrowserRouter([
             {
                 path: ROUTES_CONSTANTS.CLIENT.children.SEARCH_PAGE.path,
                 element: <SearchPage/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.CLIENT.children.REVIEWS.path,
+                element: <ReviewsPage/>,
+            },
+            {
+                path: ROUTES_CONSTANTS.CLIENT.children.WATCH_HISTORY.path,
+                element: <WatchHistoryPage/>,
             },
             {
                 path: ROUTES_CONSTANTS.CLIENT.children.PROFILE.path,

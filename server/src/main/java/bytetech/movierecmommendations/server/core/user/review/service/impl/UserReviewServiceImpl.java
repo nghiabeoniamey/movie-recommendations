@@ -93,14 +93,6 @@ public class UserReviewServiceImpl implements UserReviewService {
                     Message.Response.NOT_FOUND + " bộ phim trong hệ thống"
             );
         }
-
-//        if (!watchHistoryRepository.existsWatchHistoriesByUserAndMovie(user, movie)) {
-//            return ResponseObject.errorForward(
-//                    HttpStatus.BAD_REQUEST,
-//                    Message.Response.NOT_FOUND + " người dùng chưa xem phim để đánh giá"
-//            );
-//        }
-
         Reviewer reviewer = new Reviewer();
         reviewer.setUser(user);
         reviewer.setMovie(movie);

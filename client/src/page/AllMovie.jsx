@@ -58,6 +58,11 @@ const AllMovie = () => {
         fetchSortedData(sortId);
     };
 
+    const handleNavigate = async (movie) => {
+        await UserMovieApi.ViewMovie(movie);
+        navigate(`/detail/${movie.id}`);
+    }
+
     return (<div className="min-h-screen bg-black text-white  pb-10 pt-20">
         <div className="my-10 px-10 max-w-full ">
             <h2 className="text-xl uppercase mb-4 mt-10">Movies</h2>
@@ -72,7 +77,7 @@ const AllMovie = () => {
                     style={{
                         backgroundImage: `url(${movie.picture || testImage})`,
                     }}
-                    onClick={() => navigate(`/detail/${movie.id}`)}
+                    onClick={() => handleNavigate(movie)}
                 >
                     <div className="bg-black w-full h-full opacity-40 absolute top-0 left-0 z-0"/>
                     <div className="relative p-4 flex flex-col items-center justify-end h-full">

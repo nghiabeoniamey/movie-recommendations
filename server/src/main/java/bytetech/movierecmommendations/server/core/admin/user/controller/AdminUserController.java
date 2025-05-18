@@ -49,4 +49,9 @@ public class AdminUserController {
         return Helper.createResponseEntity(userService.changeStatusUser(id));
     }
 
+    @GetMapping("/active/{id}")
+    public ResponseEntity<?> getIsActive(@PathVariable String id) {
+        return Helper.createResponseEntity(userService.getIsActive(id));
+    }
+
 }

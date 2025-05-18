@@ -90,6 +90,10 @@ const MovieDetailDemo = () => {
                                 <FaCalendarAlt/>
                                 <span>Release: {movie.year}</span>
                             </div>
+                            <div className="flex col-span-2 items-center space-x-2 text-gray-300">
+                                <FaTheaterMasks/>
+                                <span>Actor: {movie.actor}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

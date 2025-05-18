@@ -11,6 +11,7 @@ export interface UserInformation {
   id: string;
   userName: string;
   email: string;
+  profilePicture: string;
   roleCode: string;
   roleName: string;
 }

@@ -1,7 +1,8 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useAuthStore} from "../utils/stores/auth.ts";
 import {ROUTES_CONSTANTS} from "../utils/constants/path.ts";
+import {AdminUserApi} from "../api/AdminUser";
 
 const Header = () => {
 
@@ -26,6 +27,21 @@ const Header = () => {
         }
     };
 
+    const checkActive = async (id) => {
+        AdminUserApi.CheckActive(id).then(res => {
+            if (!res.data.data) {
+                authStore.logout();
+            }
+        });
+    }
+
+    useEffect(() => {
+        if (user) {
+            checkActive(user.id).then(r => {
+            });
+        }
+    }, []);
+
     return (<div className="p-4 flex justify-between fixed top-0 left-0 w-full z-[9999] bg-black">
         <div className="flex items-center gap-8">
             <h1 className="text-[30px] uppercase text-red-700 font-bold">Movie</h1>
@@ -36,6 +52,16 @@ const Header = () => {
                 <a href="/movies" className="hover:text-red-700 text-white">
                     Movies
                 </a>
+                {user && (
+                    <>
+                        <a href="/reviews" className="hover:text-red-700 text-white">
+                            Reviews
+                        </a>
+                        <a href="/watch-history" className="hover:text-red-700 text-white">
+                            Watch History
+                        </a>
+                    </>
+                )}
             </nav>
         </div>
 
@@ -71,7 +97,9 @@ const Header = () => {
                         {user.userName}
                     </div>
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png"
+                        src={user.profilePicture ? user.profilePicture :
+                            `https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png`
+                        }
                         alt="avatar"
                         className="h-8 w-8 rounded-full object-cover mr-2"
                     />
@@ -79,12 +107,12 @@ const Header = () => {
 
                 {showDropdown && (
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-50">
-                        {/*<Link*/}
-                        {/*    to={ROUTES_CONSTANTS.CLIENT.children.PROFILE.path}*/}
-                        {/*    className="block px-4 py-2 text-gray-700 hover:bg-gray-100"*/}
-                        {/*>*/}
-                        {/*    Profile*/}
-                        {/*</Link>*/}
+                        <Link
+                            to={ROUTES_CONSTANTS.CLIENT.children.PROFILE.path}
+                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                        >
+                            Profile
+                        </Link>
                         {user.roleCode === "ADMIN" && (
                             <Link
                                 to={ROUTES_CONSTANTS.ADMIN.path}

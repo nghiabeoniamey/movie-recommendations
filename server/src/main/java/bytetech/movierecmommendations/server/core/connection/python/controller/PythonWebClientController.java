@@ -17,8 +17,18 @@ public class PythonWebClientController {
     private final PythonMovieService movieService;
 
     @GetMapping()
-    public ResponseEntity<?> getUsers() {
+    public ResponseEntity<?> getMoviesRecommendations() {
         return Helper.createResponseEntity(movieService.getMoviesRecommendation());
+    }
+
+    @GetMapping("/reviewer")
+    public ResponseEntity<?> getMovieReviewer() {
+        return Helper.createResponseEntity(movieService.getMoviesReviewer());
+    }
+
+    @GetMapping("/view")
+    public ResponseEntity<?> getMovieView() {
+        return Helper.createResponseEntity(movieService.getMoviesHistory());
     }
 
 }

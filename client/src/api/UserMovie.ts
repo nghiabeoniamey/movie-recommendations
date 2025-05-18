@@ -52,6 +52,38 @@ export const UserMovieApi = {
         return res.data;
     },
 
+    ViewMovie: async (req: any) => {
+        const data = {
+            movieId: req.id,
+        }
+
+        const res = (await request({
+            url: `${PREFIX_API_MOVIE_USER}/view`,
+            method: "POST",
+            data: data,
+        })) as AxiosResponse<DefaultResponse<Object>>;
+
+        return res.data;
+    },
+
+    GetMovieReviews: async () => {
+        const res = (await request({
+            url: `${PREFIX_API_CONNECTION_PYTHON}/reviewer`,
+            method: "GET"
+        })) as AxiosResponse<DefaultResponse<Object>>;
+
+        return res.data;
+    },
+
+    GetMovieWatchHistory: async () => {
+        const res = (await request({
+            url: `${PREFIX_API_CONNECTION_PYTHON}/view`,
+            method: "GET"
+        })) as AxiosResponse<DefaultResponse<Object>>;
+
+        return res.data;
+    },
+
     CreateMovie: async (data: any) => {
         const res = (await request({
             url: `${PREFIX_API_MOVIE_USER}`,

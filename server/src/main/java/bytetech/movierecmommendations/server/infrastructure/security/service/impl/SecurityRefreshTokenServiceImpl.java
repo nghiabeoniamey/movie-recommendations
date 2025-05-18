@@ -113,10 +113,8 @@ public class SecurityRefreshTokenServiceImpl implements SecurityRefreshTokenServ
             user.setEmail(request.getEmail());
             user.setPassword(request.getPassword());
             user.setRoleConstant(RoleConstant.USER);
-            user.setDeleted(true);
-            User newUser = authUserRepository.save(user);
-            String accessToken = tokenProvider.createToken(newUser.getId());
-            emailService.sendMailVerified(newUser, accessToken);
+            user.setDeleted(false);
+            authUserRepository.save(user);
             return ResponseObject.successForward(null, "Đăng ký thành công, vui lòng xác thực email để kích hoạt tài khoản");
 
         } catch (Exception e) {
