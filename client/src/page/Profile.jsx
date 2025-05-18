@@ -13,7 +13,7 @@ export default function Profile() {
         email: "",
         password: "",
         role: '0',
-        deleted: false,
+        deleted: 'false',
         profilePicture: "",
     });
 
@@ -27,7 +27,7 @@ export default function Profile() {
                         email: res.data.email || "",
                         password: res.data.password || "",
                         role: res.data.role || '0',
-                        deleted: res.data.deleted || false,
+                        deleted: `${res.data.deleted}` || 'false',
                         profilePicture: res.data.profilePicture || "",
                     });
                 })
